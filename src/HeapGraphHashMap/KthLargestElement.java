@@ -37,7 +37,7 @@ public class KthLargestElement {
 }
 */
 // sol2: MaxHeap, size n
-// sol3: quick sort + prune
+// sol3: quick Sort + prune
 
 public class KthLargestElement {
 	public int findKthLargest(int[] nums, int k) {
