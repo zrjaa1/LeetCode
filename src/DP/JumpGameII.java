@@ -28,9 +28,12 @@ Explanation: The minimum number of jumps to reach the last index is 2.
 
 /*
 Sol 1: DFS, 但时间过不了
-Sol 2: BFS,
+Sol 2: BFS, 时间还是过不了
+Sol 3: DP, 从右往左填
  */
 public class JumpGameII {
+    // sol 2
+    /*
     public int jump(int[] nums) {
         if (nums == null || nums.length == 0) return -1;
         int n = nums.length;
@@ -39,16 +42,36 @@ public class JumpGameII {
         q.offer(0);
         int res = 0;
         while (q.size() != 0) {
-            int size = q.peek();
+            int size = q.size();
             res++;
-            while(size > 0) {
+            while(size-- > 0) {
                 int cur = q.poll();
-                if (nums[cur] + cur >= n-1) return res;
-                q.offer(cur + size);
-                size--;
+                for (int i = 1; i <= nums[cur]; i++) {
+                    if (cur + i >= n - 1) return res;
+                    q.offer(cur + i);
+                }
             }
         }
         return res;
+    }
+    */
+
+    // sol 3
+    public int jump(int[] nums) {
+        if (nums == null || nums.length == 0) return -1;
+        int n = nums.length;
+        int[] dp = new int[n];
+        dp[n-1] = 0;
+        for (int i = n-2; i>=0; i--) {
+            // 注意这里需要用max-1，因为后面的dp[i] = min+1可能导致溢出。
+            int min = Integer.MAX_VALUE-1;
+            for (int j = 1; j <= nums[i]; j++) {
+                if (i+j > n-1) break;
+                min = Math.min(dp[i+j], min);
+            }
+            dp[i] = min+1;
+        }
+        return dp[0];
     }
 
     public static void main() {
