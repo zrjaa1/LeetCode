@@ -1,5 +1,4 @@
 package OA;
-import org.omg.CORBA.INTERNAL;
 
 import java.util.*;
 public class MinimumDistance {
