@@ -39,6 +39,7 @@ Explanation: There exist two distinct solutions to the 4-queens puzzle as shown 
 
 /* Thought
     DFS, easy. Remember to 1. back-tracing and 2. create a new list when adding to result (deep copy).
+    Optimization: Use 3 boolean array: conflictUp, conflictLeft, conflictRight to record the possible conflict position. Remember to clone 3 new arrays when you call the recursion (behaves like back-tracing)
  */
 
 public class NQueens {
@@ -59,9 +60,10 @@ public class NQueens {
             res.add(temp);
             return;
         }
+        updateConflictArray(n, sol, conflictUp, conflictLeft, conflictRight);
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < n; i++) {
-            if (!fit(n, i, sol, conflictUp, conflictLeft, conflictRight)) sb.append('.');
+            if (!fit(i, conflictUp, conflictLeft, conflictRight)) sb.append('.');
             else {
                 sb.append('Q');
                 while (sb.length() != n) sb.append('.');
@@ -77,22 +79,25 @@ public class NQueens {
         }
     }
 
-    private boolean fit(int n, int index, List<String> sol, boolean[] conflictUp, boolean[] conflictLeft, boolean[] conflictRight) {
-        if (sol.size() < 1) return true;
+    private void updateConflictArray(int n, List<String> sol, boolean[] conflictUp, boolean[] conflictLeft, boolean[] conflictRight) {
+        if (sol.size() < 1) return;
         String lastRow = sol.get(sol.size()-1);
-        if (index - 1 >= 0 && (lastRow.charAt(index-1) == 'Q' || conflictLeft[index] ==  true)) {
-            conflictLeft[index] = true;
-            return false;
+        for (int i = 0; i < n; i++) {
+            if (lastRow.charAt(i) == 'Q' || conflictUp[i] == true) conflictUp[i] = true;
+            else conflictUp[i] = false;
         }
-        if (index + 1 < n && (lastRow.charAt(index+1) == 'Q' || conflictRight[index] ==  true)) {
-            conflictRight[index] = true;
-            return false;
+        for (int i = n-1; i >= 1; i--) {
+            if (lastRow.charAt(i-1) == 'Q' || conflictLeft[i-1] == true) conflictLeft[i] = true;
+            else conflictLeft[i] = false;
         }
-        if (lastRow.charAt(index) == 'Q' || conflictUp[index] ==  true) {
-            conflictUp[index] = true;
-            return false;
+        for (int i = 0; i <= n-2; i++) {
+            if (lastRow.charAt(i+1) == 'Q' || conflictRight[i+1] == true) conflictRight[i] = true;
+            else conflictRight[i] = false;
         }
-        return true;
+    }
+
+    private boolean fit(int index, boolean[] conflictUp, boolean[] conflictLeft, boolean[] conflictRight) {
+        return !(conflictUp[index] || conflictLeft[index] || conflictRight[index]);
     }
 
     public static void main(String[] args) {
