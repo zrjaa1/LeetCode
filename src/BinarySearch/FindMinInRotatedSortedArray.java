@@ -22,7 +22,7 @@ package BinarySearch;
 
 class FindMinInRotatedSortedArray {
  public int findMin(int[] nums) {
-     if (nums == null || nums.length == 0) throw new IllegalArgumentException();
+         if (nums == null || nums.length == 0) throw new IllegalArgumentException();
      if (nums.length == 1) return nums[0];
      
      int left = 0;

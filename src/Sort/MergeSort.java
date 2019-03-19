@@ -1,4 +1,5 @@
 package Sort;
+import java.util.*;
 
 public class MergeSort{
 	public void mergeSort(int[] nums) {
@@ -37,6 +38,33 @@ public class MergeSort{
 				left++;
 			}
 		}
+	}
+
+	private List<Integer> mergeII(List<Integer> left, List<Integer> right) {
+		int index1 = 0;
+		int index2 = 0;
+		List<Integer> res = new ArrayList<>();
+		while (index1 < left.size() && index2 < right.size()) {
+			if (left.get(index1) < right.get(index2)) {
+				res.add(left.get(index1));
+				index1++;
+			} else {
+				res.add(right.get(index2));
+				index2++;
+			}
+		}
+		if (index1 == left.size()) {
+			while (index2 < right.size()) {
+				res.add(right.get(index2));
+				index2++;
+			}
+		} else {
+			while (index1 < left.size()) {
+				res.add(left.get(index1));
+				index1++;
+			}
+		}
+		return res;
 	}
 
 	public static void main(String[] args) {

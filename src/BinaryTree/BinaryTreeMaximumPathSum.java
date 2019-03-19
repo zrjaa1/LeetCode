@@ -42,6 +42,7 @@ refer to MaximumAnyToRootPathSum, we prune the case that the left & right tree d
 In the process of going back from the recursion, we can update a max to record the leaf - leaf maximum path sum.
 And if we have prune here, we act like a any - any maximum path sum.
 Note: if left or right < 0, set it to 0.
+Note: any to any的题，只能recursion从下往上,从上往下做的方法无法cover "人"字型path
  */
 public class BinaryTreeMaximumPathSum {
     public int maxPathSum(TreeNode root) {
