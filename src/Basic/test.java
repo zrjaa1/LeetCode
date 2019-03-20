@@ -1,17 +1,16 @@
 package Basic;
+import java.util.*;
 
 // test for keyword - static
 public class test {
-	public int[] generateArray(int size) {
-		int[] arr = new int[size];
-		for (int i = 0; i < size; i++) {
-			if (i == 20) continue; 
-			arr[i] = i; 
-		}
-		return arr;
-	}
-	
-	public static void main(String[] args) throws Exception {
-		
-	}
+    public static void main(String[] args) {
+        int[] tester = {1,3,5,7,9};
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < tester.length; i++) {
+            map.put(tester[i], i);
+        }
+        int res = map.get(7);
+        System.out.println(res);
+        System.out.println(map.get(5));
+    }
 }
