@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 
 // minHeap
+/*
 public class Heap {
 	public static void main (String[] args) {
 		PriorityQueue<Integer> heap = new PriorityQueue<Integer>(2, customizedComparator);
@@ -19,3 +20,4 @@ public class Heap {
 		}
 	};
 }
+*/

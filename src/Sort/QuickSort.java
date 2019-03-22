@@ -17,7 +17,7 @@ public class QuickSort {
 		if (left >= right) return; 
 		int pivot = left + (right-left)/2;
 		
-		Util.swap(array, pivot, right);
+		Util.swapIntArray(array, pivot, right);
 		pivot = right;
 		right--;
 		
@@ -25,11 +25,11 @@ public class QuickSort {
 		while (left <= right) {
 			if (array[left] < array[pivot]) left++;
 			else if (array[right] >= array[pivot]) right--;
-			else Util.swap(array, left++, right--);
+			else Util.swapIntArray(array, left++, right--);
 		}
 		
 		// swap with left, since array[left] > array[pivot]
-		Util.swap(array, left, pivot);
+		Util.swapIntArray(array, left, pivot);
 		helper(array, 0, left-1);
 		helper(array, left+1, pivot);
 	}
