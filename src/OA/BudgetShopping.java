@@ -1,6 +1,9 @@
 package OA;
 import java.util.*;
 
+/*
+Visa OA. 找能买到的最多的本子数目
+ */
 public class BudgetShopping{
         public static int budgetShopping(int n, List<Integer> bundleQuantities, List<Integer> bundleCosts) {
             // Write your code here
