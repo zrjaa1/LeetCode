@@ -14,12 +14,10 @@ public class QuickSort {
 	// sol1: left right go to mid
 	
 	public void helper(int[] array, int left, int right) {
-		if (left >= right) return; 
-		int pivot = left + (right-left)/2;
-		
-		Util.swapIntArray(array, pivot, right);
-		pivot = right;
-		right--;
+		if (left >= right) return;
+
+		// chose right as pivot directly
+		int pivot = right--;
 		
 		// in the end, left > right
 		while (left <= right) {
@@ -61,7 +59,7 @@ public class QuickSort {
 	
 	public static void main(String[] args) {
 		QuickSort test = new QuickSort();
-		int[] array = new int[] {3,3,3,3,4,3,3,3,3};
+		int[] array = new int[] {9,6,6,5,6,6,6};
 		test.quickSort(array);
 		for (int i : array) {
 			System.out.print(i);
