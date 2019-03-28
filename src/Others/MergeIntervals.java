@@ -32,12 +32,15 @@ Submissions
 /*
 这道题学习的点: 1. sort的写法 2. 可以在for loop中修改i的值
  */
+
+/*
 class Interval {
       int start;
       int end;
       Interval() { start = 0; end = 0; }
       Interval(int s, int e) { start = s; end = e; }
  }
+ */
 
 public class MergeIntervals {
     public List<Interval> merge(List<Interval> intervals) {
