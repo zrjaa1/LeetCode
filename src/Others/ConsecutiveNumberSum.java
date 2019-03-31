@@ -44,6 +44,7 @@ public class ConsecutiveNumberSum {
         // i - start point, n - number of integers in the sequence
         for (int n = 1; ;n++) {
             // n*(n-1)奇数*偶数，除以2不会有损失
+
             int xn = N- n * (n-1) / 2;
             if (xn <= 0) break;
             // 取模也不会有损失

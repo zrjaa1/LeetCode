@@ -7,6 +7,6 @@ interface func {
 }
 public class test {
     public static void main(String[] args) {
-        Queue<Integer> minHeap = new PriorityQueue<>((s1, s2) -> s1 - s2 < 0 ? -1 : 1);
+        System.out.println();
     }
 }
