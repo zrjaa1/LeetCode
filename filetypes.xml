@@ -3,6 +3,7 @@
     <ignoreFiles list="*.hprof;*.idea;*.iml;*.pyc;*.pyo;*.rbc;*.xml;*.yarb;*~;.DS_Store;.git;.hg;.svn;CVS;__pycache__;_svn;_windows;codestyles;vssver.scc;vssver2.scc;" />
     <extensionMap>
       <mapping ext="klib" type="ARCHIVE" />
+      <mapping ext="txd" type="PLAIN_TEXT" />
     </extensionMap>
   </component>
 </application>
