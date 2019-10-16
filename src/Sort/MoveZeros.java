@@ -26,7 +26,7 @@ public class MoveZeros {
         int fast = 0;
         while (fast != nums.length) {
             if (nums[fast] != 0) {
-                Util.Util.swap(nums, slow, fast);
+                Util.Util.swapIntArray(nums, slow, fast);
                 slow++;
             }
             fast++;

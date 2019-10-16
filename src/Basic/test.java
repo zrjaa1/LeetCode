@@ -1,17 +1,12 @@
 package Basic;
+import java.util.*;
 
 // test for keyword - static
+interface func {
+    public void print(String s);
+}
 public class test {
-	public int[] generateArray(int size) {
-		int[] arr = new int[size];
-		for (int i = 0; i < size; i++) {
-			if (i == 20) continue; 
-			arr[i] = i; 
-		}
-		return arr;
-	}
-	
-	public static void main(String[] args) throws Exception {
-		
-	}
+    public static void main(String[] args) {
+        System.out.println();
+    }
 }

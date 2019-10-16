@@ -14,22 +14,20 @@ public class QuickSort {
 	// sol1: left right go to mid
 	
 	public void helper(int[] array, int left, int right) {
-		if (left >= right) return; 
-		int pivot = left + (right-left)/2;
-		
-		Util.swap(array, pivot, right);
-		pivot = right;
-		right--;
+		if (left >= right) return;
+
+		// chose right as pivot directly
+		int pivot = right--;
 		
 		// in the end, left > right
 		while (left <= right) {
 			if (array[left] < array[pivot]) left++;
 			else if (array[right] >= array[pivot]) right--;
-			else Util.swap(array, left++, right--);
+			else Util.swapIntArray(array, left++, right--);
 		}
 		
 		// swap with left, since array[left] > array[pivot]
-		Util.swap(array, left, pivot);
+		Util.swapIntArray(array, left, pivot);
 		helper(array, 0, left-1);
 		helper(array, left+1, pivot);
 	}
@@ -61,7 +59,7 @@ public class QuickSort {
 	
 	public static void main(String[] args) {
 		QuickSort test = new QuickSort();
-		int[] array = new int[] {3,3,3,3,4,3,3,3,3};
+		int[] array = new int[] {9,6,6,5,6,6,6};
 		test.quickSort(array);
 		for (int i : array) {
 			System.out.print(i);

@@ -18,15 +18,15 @@ Explanation: The maximum number of envelopes you can Russian doll is 3 ([2,3] =>
  */
 
 /*
-这道题用longest subsequence的逻辑:
+第一种dp：
 1. 先按envelope[0]从小到大排，相等的按envelope[1]从大到小排（改写 comparator），这样使得 dp[i]里存的高度，一定是当前最优解
 2. dp[i]的含义是，长度为i+1的 subsequence，最小的 ending height是多少
 3. 在这里 BinarySearch 起的关键作用是：不仅做了 search。还返回了该插入的 index（返回值是-(index+1)),如果返回的是一个已经有值了的index，
    就说明我有了更小的height 可以达到同样的 subsequence。但如果 width 相同的情况下，是不能取代的，为了防止这种情况，我们用了1.中所描述的
    Sort 方法
-第二种:
+第二种:（用longest subsequence的逻辑）
 1. dp[i]表示以第 i+1个元素为 ending height 的最大 subsequence 长度
-2. 双层 loop，第一层 loop 所有元素，第二层往回看，找可以包含条件下的最大的dp[j]，然后+1赋给当前的 dp[i]
+2. 双层 loop，第一层 loop 所有元素，第二层loop往回看，找可以包含条件下的最大的dp[j]，然后+1赋给当前的 dp[i]
 3. 再走一次，返回最大的 dp[i]
 4. note：仍然需要使用上述的 Sort 方法，这样确保了(6,7)不会包含(6,4)
  */
