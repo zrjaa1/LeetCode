@@ -53,7 +53,7 @@ Can you do it in time complexity O(k log mn), where k is the length of the posit
 /*
 sol1: brute force, 对每次修改，直接调用LC 200 Number of Islands, 得到结果 -> O(k) * O(m*n) -> Time Limit Exceed
 sol2: union find。这道题是典型的 union find，我们需要以O(1)的时间来 union/merge，O（logn)的时间来找到祖先
-      
+
  */
 
 public class NumberOfIslandsII {
@@ -118,7 +118,7 @@ public class NumberOfIslandsII {
                 if (i < 0 || i >= m || j < 0 || j >= n || roots[neighbor] == -1) continue;
 
                 int neighborRoot = findRoot(roots, neighbor);
-                // if they don't have the same neighbor
+                // if they don't have the same root
                 if (root != neighborRoot) {
                     roots[root] = neighborRoot;
                     root = neighborRoot;

@@ -8,10 +8,10 @@ package BinarySearch;
 //Example:
 //
 //Input: citations = [0,1,3,5,6]
-//Output: 3 
-//Explanation: [0,1,3,5,6] means the researcher has 5 papers in total and each of them had 
-//             received 0, 1, 3, 5, 6 citations respectively. 
-//             Since the researcher has 3 papers with at least 3 citations each and the remaining 
+//Output: 3
+//Explanation: [0,1,3,5,6] means the researcher has 5 papers in total and each of them had
+//             received 0, 1, 3, 5, 6 citations respectively.
+//             Since the researcher has 3 papers with at least 3 citations each and the remaining
 //             two with no more than 3 citations each, her h-index is 3.
 //Note:
 //
@@ -25,25 +25,27 @@ package BinarySearch;
 // *Thoughts*
 // since we are trying to find the h index, which means your return value should be located at the hth position to the right. so it's a comparison
 // between the index and the value on that index.
-// and we have to use 3rd solution of binary search. By this way, it is guaranteed that the right+1 is the one we  
+// and we have to use 3rd solution of binary search. By this way, it is guaranteed that the right+1 is the one we
 
+/**
+ * 出界之后return的值需要尝试去理解并记忆
+ */
 class HIndex {
 	public int getIndex(int[] citations) {
         if (citations == null || citations.length == 0) return 0;
-        
+
         int len = citations.length;
         int left = 0;
         int right = len-1;
-        int mid = 0;
-        
+
         while (left <= right) {
-            mid = left + (right-left)/2;
+            int mid = left + (right-left)/2;
             if (citations[mid] == len-mid) return citations[mid];
             if(citations[mid] < len-mid) left = mid+1;
             else right = mid-1;
         }
-        
-        return len - (right+1);
+
+        return len - left;
     }
 
     public static void main(String[] args) {

@@ -37,11 +37,11 @@ public class Validate BST {
         return isValidBST(root.left, Long.MIN_VALUE, root.val) &&
                isValidBST(root.right, root.val, Long.MAX_VALUE);
     }
-    
+
     // overloading
     private boolean isValidBST(TreeNode root, long lowerBound, long upperBound) {
-        if (root == null) return true; 
-        
+        if (root == null) return true;
+
         if (root.val <= lowerBound || root.val >= upperBound) return false;
         return isValidBST(root.left, lowerBound, root.val) &&
                 isValidBST(root.right, root.val, upperBound);
@@ -55,7 +55,7 @@ public class ValidateBST {
         if (root == null || (root.left == null && root.right == null)) return true;
         long[] leftBound;
         long[] rightBound;
-        
+
         if (root.left == null) {
             rightBound = helper(root.right);
             if (rightBound == null) return false;
@@ -66,7 +66,7 @@ public class ValidateBST {
             if (leftBound == null) return false;
             else if (root.val <= leftBound[1]) return false;
             else return true;
-        } else {     
+        } else {
             leftBound = helper(root.left);
             rightBound = helper(root.right);
 
@@ -75,12 +75,12 @@ public class ValidateBST {
             else return true;
         }
     }
-    
+
     // this function assume root != null
     private long[] helper(TreeNode root) {
         long[] rightBound;
         long[] leftBound;
-        if (root.left == null && root.right == null) return new long[] {root.val, root.val}; 
+        if (root.left == null && root.right == null) return new long[] {root.val, root.val};
         else if (root.left == null) {
             rightBound = helper(root.right);
             if (rightBound == null || root.val >= rightBound[0]) return null;
@@ -96,5 +96,25 @@ public class ValidateBST {
             else return new long[] {leftBound[0], rightBound[1]};
         }
     }
-// sol3: use built-in iterator (hasNext())
+
+    // sol3: Use prev pointer
+    public boolean isValidBSTWithPrev(TreeNode root, TreeNode[] prev) {
+        if (root == null) {
+            return true;
+        }
+
+        if (!isValidBSTWithPrev(root.left, prev)) {
+            return false;
+        }
+
+        if (prev[0] != null && root.val <= prev[0].val) {
+            return false;
+        }
+        prev[0] = root;
+
+        if (!isValidBSTWithPrev(root.right, prev)) {
+            return false;
+        }
+        return true;
+    }
 }

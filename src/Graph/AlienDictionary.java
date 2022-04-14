@@ -56,6 +56,7 @@ There may be multiple valid order of letters, return any one of them is fine.
  */
 
 /*
+BFS解法：
 这道题考察Graph的应用。图的表示方式中，可以用hashMap<node, List<node>>，在这里，我们用HashMap<Character, Set<Character>>，named map用来表示edge（在本题中是directed）
 然后用另一个HashMap<Character, Integer> named degree来表示每个node 的入度，入度>0，代表有人指向，即自己的优先级不是最高的
 先遍历所有String，完善map和degree（degree的初始值需要设为0，否则之后可能会有问题），这里需要注意的是，完善map使的遍历，只需要比较words[i]和words[i+1]即可，因为我们需要的只是邻居之间的大小关系
@@ -64,10 +65,20 @@ There may be multiple valid order of letters, return any one of them is fine.
 在完成上一步之后，我们将所有入度为0的character放到queue中，用BFS的方法遍历，放入res中，然后把这个character所指向的所有character的入度-1，代表"我对你的压制已经不存在了，因为我已经放入res中了"
 如果一个character的入度因此变为0，证明它现在已经是剩余的character中优先级最高的了，于是再把它放入queue中等待遍历。
 
+DFS解法：
+用查环的code，多一行res.add(0, cur);
+
+Corner/Edge case: Input -> Output
+1. ["aba"] -> ["ab"]
+2. ["ab", "ab"] -> ["ab"]
+3. [
  */
 
 public class AlienDictionary {
-    public String alienOrder(String[] words) {
+    /**
+     * BFS
+     */
+    public String alienOrderBFS(String[] words) {
         String res = "";
         if (words == null || words.length == 0) return res;
         Map<Character, Set<Character>> map = new HashMap<>();
@@ -117,5 +128,80 @@ public class AlienDictionary {
         // 这里是判断是否有矛盾的节点，如 a->b, b->a, 则会输出aba
         if (res.length() != degree.size()) return "";
         return res;
+    }
+
+    /**
+     * DFS
+     */
+    public String alienOrderDFS(String[] words) {
+        // some corner case covered by Constraints
+
+        // initialization
+        Map<Character, List<Character>> graph;
+        try {
+            graph = buildGraph(words);
+        } catch (IllegalStateException ex) { // Invalid input -> ["abc", "ab"], should be ["ab", "abc"]
+            return "";
+        }
+
+        int[] visited = new int[26];
+        StringBuilder sb = new StringBuilder();
+
+        // recursion
+        for (char ch: graph.keySet()) {
+            if (containsCycle(graph, ch, visited, sb)) {
+                return "";
+            }
+        }
+        return sb.reverse().toString();
+    }
+
+    private boolean containsCycle(Map<Character, List<Character>> graph, char ch, int[] visited, StringBuilder sb) {
+        int state = visited[ch - 'a'];
+        if (state == 1) { // visiting
+            return true;
+        }
+
+        if (state == 2) { // visited
+            return false;
+        }
+
+        visited[ch - 'a'] = 1; // visiting
+        for (Character next: graph.get(ch)) {
+            if (containsCycle(graph, next, visited, sb)) {
+                return true;
+            }
+        }
+        visited[ch - 'a'] = 2; // visited
+        sb.append(ch);
+        return false;
+    }
+
+    private Map<Character, List<Character>> buildGraph(String[] words) {
+        Map<Character, List<Character>> graph = new HashMap<>();
+        for (String word: words) {
+            for (char ch: word.toCharArray()) {
+                if (!graph.containsKey(ch)) {
+                    graph.put(ch, new LinkedList<>());
+                }
+            }
+        }
+
+        for (int i = 0; i < words.length - 1; i++) {
+            if (words[i].length() > words[i + 1].length() && words[i].startsWith(words[i + 1])) {
+                throw new IllegalStateException();
+            }
+
+            for (int j = 0; j < words[i].length(); j++) {
+                char ch0 = words[i].charAt(j);
+                char ch1 = words[i + 1].charAt(j);
+                if (ch0 != ch1) {
+                    graph.get(ch0).add(ch1);
+                    break;
+                }
+            }
+        }
+
+        return graph;
     }
 }
