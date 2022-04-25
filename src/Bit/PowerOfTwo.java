@@ -1,5 +1,4 @@
-package BitMath;
-import java.util.*;
+package Bit;
 
 /*
 231

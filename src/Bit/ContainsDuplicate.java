@@ -1,4 +1,4 @@
-package BitMath;
+package Bit;
 import java.util.*;
 
 /*

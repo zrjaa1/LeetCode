@@ -7,7 +7,7 @@ import java.util.Stack;
 // *LeetCode* 145
 
 public class BinaryTreePostorderTraversal {
-	public ArrayList<Integer> postorderTraversal(TreeNode root) {
+	public ArrayList<Integer> postorderTraversalRecursion(TreeNode root) {
         if (root == null) return new ArrayList() {};
         ArrayList<Integer> res = new ArrayList<Integer>();
         helper(root, res);
@@ -19,16 +19,13 @@ public class BinaryTreePostorderTraversal {
             helper(cur.right, res);
             res.add(cur.val);
     }
-}
 
-
-// iteration
-class Solution {
-    public LinkedList<Integer> postorderTraversal(TreeNode root) {
-        LinkedList<Integer> res = new LinkedList<Integer>();
+    // Sol2: Iteration using stack
+    public LinkedList<Integer> postorderTraversalIteration(TreeNode root) {
+        LinkedList<Integer> res = new LinkedList<>();
         if (root == null) return res;
-        
-        Stack<TreeNode> stack = new Stack<TreeNode>();
+
+        Stack<TreeNode> stack = new Stack<>();
         while ( !stack.empty() || root != null) {
             if (root == null) {
                 root = stack.pop();
@@ -39,6 +36,6 @@ class Solution {
                 root = root.right;      //reverse of pre-order
             }
         }
-        return res; 
+        return res;
     }
 }

@@ -1,5 +1,4 @@
-package BitMath;
-import java.util.*;
+package Bit;
 
 /*
 405. Convert a Number to Hexadecimal

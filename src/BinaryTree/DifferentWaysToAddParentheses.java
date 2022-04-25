@@ -1,7 +1,6 @@
 package BinaryTree;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -41,7 +40,7 @@ import java.util.List;
 /**
  * Notes
  * 1. Branching of which operator is the root of current level.
- * 2. 2 methods to remove parentheses: Convert to Syntax Tree, Reverse Polish notation(4 * 5 - 3 as 4 5 * 3 -)
+ * 2. 2 methods to remove parentheses: Convert to Syntax Tree, Reverse Polish notation (4 - 5 * 3 as 4 5 3 * -)
  * 3. The different structure of Syntax Tree represents the calculation sequence of given numbers(leaves) and operators(non-leaf nodes)
  */
 public class DifferentWaysToAddParentheses {

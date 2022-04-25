@@ -1,16 +1,11 @@
-package Others;
+package Interval;
+import Util.Interval;
+
 import java.util.*;
-/*
-56. Merge Intervals
+/**
+56. Merge Intervals: https://leetcode.com/problems/merge-intervals/
 Medium
 
-1817
-
-138
-
-Favorite
-
-Share
 Given a collection of intervals, merge all overlapping intervals.
 
 Example 1:
@@ -29,21 +24,35 @@ Submissions
 907,708
  */
 
-/*
+/**
 这道题学习的点: 1. sort的写法 2. 可以在for loop中修改i的值
  */
 
-/*
-class Interval {
-      int start;
-      int end;
-      Interval() { start = 0; end = 0; }
-      Interval(int s, int e) { start = s; end = e; }
- }
- */
-
 public class MergeIntervals {
-    public List<Interval> merge(List<Interval> intervals) {
+    // sol1: use a separate result list
+    public int[][] mergeSol1(int[][] intervals) {
+        if (intervals == null || intervals.length <= 1) {
+            return intervals;
+        }
+
+        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+        List<int[]> res = new LinkedList<>();
+        int[] prev = intervals[0];
+        for (int i = 1; i < intervals.length; i++) {
+            int[] cur = intervals[i];
+            if (cur[0] <= prev[1]) { // merge
+                prev[1] = Math.max(cur[1], prev[1]);
+            } else { // store prev in the res list
+                res.add(prev);
+                prev = cur;
+            }
+        }
+        res.add(prev);
+        return res.toArray(new int[res.size()][]);
+    }
+
+    // sol2: in place operation
+    public List<Interval> mergeSol2(List<Interval> intervals) {
         if (intervals == null || intervals.size() <= 1) return intervals;
         intervals.sort((i1, i2) -> Integer.compare(i1.start, i2.start));
         for (int i = 0; i < intervals.size()-1; i++) {

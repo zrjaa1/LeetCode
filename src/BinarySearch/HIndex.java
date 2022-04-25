@@ -48,7 +48,7 @@ class HIndex {
         return len - left;
     }
 
-    public static void main(String[] args) {
+        public static void main(String[] args) {
     	HIndex test = new HIndex();
     	int[] citations = {0,2};
     	int res = test.getIndex(citations);

@@ -1,4 +1,4 @@
-package BitMath;
+package Bit;
 
 public class ReverseInteger {
 

@@ -1,16 +1,9 @@
 package Others;
 
-/*
+/**
 528. Random Pick with Weight
 Medium
 
-206
-
-331
-
-Favorite
-
-Share
 Given an array w of positive integers, where w[i] describes the weight of index i, write a function pickIndex which randomly picks an index in proportion to its weight.
 
 Note:
@@ -40,7 +33,7 @@ Submissions
 48,853
  */
 
-/*
+/**
 举例：将[3,14,7,9] -> [3, 17, 24, 33] 然后产生一个[0,33]的随机数，binary search找到这个随机数所处的区间然后返回index
  */
 public class RandomPickWithWeight {
