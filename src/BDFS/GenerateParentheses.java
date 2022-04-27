@@ -28,20 +28,24 @@ public class GenerateParentheses {
         return res;
     }
 
-    void dfs(int n, int left, int right, StringBuilder sb, List<String> res) {
-        if (left + right >= 2*n) {
-            res.add(sb.toString());
+    void dfs(int n, int left, int right, StringBuilder path, List<String> res) {
+        if (left + right == 2 * n) {
+            res.add(path.toString());
             return;
         }
+
+        // append left
         if (left < n) {
-            sb.append('(');
-            dfs(n, left+1, right, sb, res);
-            sb.deleteCharAt(sb.length()-1);
+            path.append('(');
+            dfs(n, left + 1, right, path, res);
+            path.setLength(path.length() - 1);
         }
-        if (right < left) {
-            sb.append(')');
-            dfs(n, left, right+1, sb, res);
-            sb.deleteCharAt(sb.length()-1);
+
+        // append right
+        if (left > right) {
+            path.append(')');
+            dfs(n, left, right + 1, path, res);
+            path.setLength(path.length() - 1);
         }
     }
 }

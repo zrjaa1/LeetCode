@@ -1,18 +1,9 @@
 package Others;
-import java.util.*;
-import Util.*;
 
-/*
-755. Pour Water
+/**
+755. Pour Water: https://leetcode.com/problems/pour-water/
 Medium
 
-102
-
-177
-
-Favorite
-
-Share
 We are given an elevation map, heights[i] representing the height of the terrain at that index. The width at each index is 1. After V units of water fall at index K, how much water is at each index?
 
 Water first drops at index K and rests on top of the highest terrain or water at that index. Then, it flows according to the following rules:
