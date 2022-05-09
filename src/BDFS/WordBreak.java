@@ -45,10 +45,10 @@ public class WordBreak {
         if (s == null || s.length() == 0 || wordDict == null || wordDict.size() == 0) {
             return false;
         }
-        return dfsWithPrunning(s, wordDict, 0, new Boolean[s.length()]);
+        return dfsWithPruning(s, wordDict, 0, new Boolean[s.length()]);
     }
 
-    private static boolean dfsWithPrunning(String s, List<String> wordDict, int index, Boolean[] mem) {
+    private static boolean dfsWithPruning(String s, List<String> wordDict, int index, Boolean[] mem) {
         // base case
         if (index == s.length()) {
             return true;
@@ -62,7 +62,7 @@ public class WordBreak {
         for (int i = index; i < s.length(); i++) {
             String word = s.substring(index, i + 1);
             if (wordDict.contains(word)) {
-                result |= dfsWithPrunning(s, wordDict, i + 1, mem);
+                result |= dfsWithPruning(s, wordDict, i + 1, mem);
             }
         }
         mem[index] = result;

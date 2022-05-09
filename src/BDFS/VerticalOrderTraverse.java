@@ -81,7 +81,7 @@ Output:
     Warning: My solution is not completely correct since the solution want the sequence like BFS but I actually work as DFS way. However, the method should be the same
  */
 
-class Solution {
+class VerticalOrderTraverse {
     public List<List<Integer>> verticalOrder(TreeNode root) {
         List<List<Integer>> res = new ArrayList<List<Integer>>();
         if (root == null) return res;

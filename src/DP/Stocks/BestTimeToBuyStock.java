@@ -1,15 +1,9 @@
-package DP;
-/*
+package DP.Stocks;
+
+/**
 121. Best Time to Buy and Sell Stock
 Easy
 
-2298
-
-113
-
-Favorite
-
-Share
 Say you have an array for which the ith element is the price of a given stock on day i.
 
 If you were only permitted to complete at most one transaction (i.e., buy one and sell one share of the stock), design an algorithm to find the maximum profit.
@@ -29,19 +23,24 @@ Output: 0
 Explanation: In this case, no transaction is done, i.e. max profit = 0.
  */
 
-/*
+/**
 Thought: min - the min value till now.
          max - the max profit that can be made through [0, i)
  */
 
 public class BestTimeToBuyStock {
     public int maxProfit(int[] prices) {
-        if (prices == null || prices.length == 0) return 0;
-        int max = Integer.MIN_VALUE, min = Integer.MAX_VALUE;
-        for (int i = 0; i < prices.length; i++) {
-            min = Math.min(min, prices[i]);
-            max = Math.max(max, prices[i] - min);
+        int days = prices.length;
+        int min = Integer.MIN_VALUE;
+        int max = 0; // use 0 instead of Integer.MIN_VALUE here as the profit cannot be less than 0.
+
+        for (int i = 0; i < days; i++) {
+            if (i != 0) {
+                max = Math.max(max, min + prices[i]);
+            }
+            min = Math.max(min, -prices[i]);
         }
+
         return max;
     }
 }

@@ -74,7 +74,6 @@ public class CanIWin {
                     return true;
                 }
             }
-
         }
         mem.put(pool, false);
         return false;

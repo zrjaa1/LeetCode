@@ -1,16 +1,9 @@
 package DP;
 
-/*
-72. Edit Distance
+/**
+72. Edit Distance: https://leetcode.com/problems/edit-distance/
 Hard
 
-1779
-
-27
-
-Favorite
-
-Share
 Given two words word1 and word2, find the minimum number of operations required to convert word1 to word2.
 
 You have the following 3 operations permitted on a word:
@@ -38,72 +31,40 @@ exention -> exection (replace 'n' with 'c')
 exection -> execution (insert 'u')
  */
 
-/*
-DP, dp[i][j] means the mininum steps to change from s1.substring(0,i) to s2.substring(0,j)
-if s1.charAt(i) == s1.charAt(j), dp[i][j] = dp[i-1][j-1]
-else dp[i][j] = minThree(dp[i-1][j-1]+1, dp[i-1][j]+1, dp[i][j-1]+1);
-Note: the size of dp should be [n1+1][n2+1], be careful about the index when read the char in the string.
-
-// sol 2: further optimized Space Complexity to O(min(m,n)).
-Use an array and 2 more temp int to implement this.
-(Better to draw a 2D -> 1D array map to understand it)
- */
 public class EditDistance {
+    // DP, O(m*n)
     public int minDistance(String word1, String word2) {
-        if (word1 == null || word2 == null) return 0;
-
-        int n1 = word1.length();
-        int n2 = word2.length();
-        int[][] dp = new int[n1+1][n2+1];
-
-        for (int i = 0; i <= n2; i++) {
-            dp[0][i] = i;
+        // corner case
+        if (word1.length() == 0) {
+            return word2.length();
         }
 
-        for (int i = 0; i <= n1; i++) {
+        if (word2.length() == 0) {
+            return word1.length();
+        }
+
+        // initial value
+        int[][] dp = new int[word1.length() + 1][word2.length() + 1];
+        for (int i = 0; i <= word1.length(); i++) {
             dp[i][0] = i;
         }
+        for (int j = 0; j <= word2.length(); j++) {
+            dp[0][j] = j;
+        }
 
-        for (int i = 1; i <= n1; i++) {
-            for (int j = 1; j <= n2; j++) {
-                if (word1.charAt(i-1) == word2.charAt(j-1)) dp[i][j] = dp[i-1][j-1];
-                else dp[i][j] = minThree(dp[i-1][j-1]+1, dp[i-1][j]+1, dp[i][j-1]+1);
+        // fill in values
+        for (int i = 1; i <= word1.length(); i++) {
+            for (int j = 1; j <= word2.length(); j++) {
+                if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1];
+                } else {
+                    int min = Math.min(dp[i - 1][j], dp[i][j - 1]);
+                    min = Math.min(min, dp[i - 1][j - 1]);
+                    dp[i][j] = 1 + min;
+                }
             }
         }
-        return dp[n1][n2];
-    }
-
-    //
-    /* sol 2: optimized Space Complexity from above
-    public int minDistance(String word1, String word2) {
-        if (word1 == null || word2 == null) return -1;
-
-        int n1 = word1.length();
-        int n2 = word2.length();
-        if (n1 > n2) return minDistance(word2, word1);
-        int[] dp = new int[n1+1];
-
-        for (int i = 0; i <= n1; i++) {
-            dp[i] = i;
-        }
-
-        for (int i = 1; i <= n2; i++) {
-            dp[0] = i;
-            int prev = i-1; // used to record the left-up corner
-            for (int j = 1; j <= n1; j++) {
-                int cur = prev;
-                prev = dp[j];
-                if (word1.charAt(j-1) == word2.charAt(i-1)) dp[j] = cur;
-                else dp[j] = minThree(cur+1, dp[j]+1, dp[j-1]+1);
-            }
-        }
-        return dp[n1];
-    }
-     */
-
-    private int minThree(int num1, int num2, int num3) {
-        int min = Math.min(num1, num2);
-        return min = Math.min(min, num3);
+        return dp[word1.length()][word2.length()];
     }
 
     public static void main(String[] args) {
