@@ -61,7 +61,7 @@ public class LongestIncreasingSubsequence {
 
         int start = 0, end = minList.size() - 1;
         while(start <= end) {
-            int mid = start + (end - start)/2;
+            int mid = start + (end - start) / 2;
             if (minList.get(mid) == target) {
                 return mid;
             } else if (minList.get(mid) < target) { // go right
