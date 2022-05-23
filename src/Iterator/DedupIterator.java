@@ -9,13 +9,13 @@ import java.util.List;
  */
 public class DedupIterator implements Iterator<Integer> {
     Iterator<Integer> iterator;
-    boolean setNext;
     Integer next;
+    boolean setNext;
 
     public DedupIterator(List<Integer> nums) {
-        this.iterator = nums.iterator();
-        this.setNext = false;
-        this.next = null;
+        iterator = nums.iterator();
+        next = null;
+        setNext = false;
     }
 
     @Override
@@ -25,23 +25,24 @@ public class DedupIterator implements Iterator<Integer> {
 
     @Override
     public Integer next() {
-        int target = -1;
+        Integer res;
         if (setNext) {
+            res = next;
+            next = null;
             setNext = false;
-            target = next;
         } else {
-            target = iterator.next();
+            res = iterator.next();
         }
 
         while (iterator.hasNext()) {
             next = iterator.next();
-            if (next != target) {
+            if (!next.equals(res)) {
                 setNext = true;
                 break;
             }
         }
 
-        return target;
+        return res;
     }
 
     public static void main(String[] args) {

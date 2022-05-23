@@ -39,8 +39,8 @@ public class InOrderSuccessorInBST {
         TreeNode candidate = null;
         while (root != null) {
             if (root.val <= p.val) {
+                // candidate = root; 在这里赋值会错误，因为这里代表当前值<= target，不可能赋值。具体什么时候赋值，demo一次来试一试就知道了，实在不能理解可以记忆或者用stack来做
                 root = root.right;
-                candidate = root;
             } else {
                 candidate = root;
                 root = root.left;

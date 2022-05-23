@@ -1,17 +1,10 @@
 package Basic;
 import java.util.*;
 
-/*
+/**
 146. LRU Cache
 Hard
 
-2568
-
-87
-
-Favorite
-
-Share
 Design and implement a data structure for Least Recently Used (LRU) cache. It should support the following operations: get and put.
 
 get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.
@@ -36,7 +29,7 @@ LRUCache cache = new LRUCache( 2 );
 
  */
 
-/*
+/**
 Thoughts: 用两个数据结构，Doubly Linked List 和 HashMap<Integer, DListNode>，其中：
           Doubly Linked List用来记录key和val（同时），然后以frequency为priority排序
           HashMap用来通过key直接找到DListNode
@@ -105,7 +98,7 @@ class LRUCache {
     }
 
     public void put(int key, int value) {
-        // check first if it exist in the map
+        // check first if it exists in the map
         DListNode node = map.get(key);
         if (node == null) {
             count++;
@@ -117,12 +110,11 @@ class LRUCache {
             node = new DListNode();
             node.key = key;
             node.val = value;
-            DListNode.addNodeHead(node, head);
         } else {
             node.val = value;
             DListNode.removeNode(node);
-            DListNode.addNodeHead(node, head);
         }
+        DListNode.addNodeHead(node, head);
         map.put(key, node);
     }
 }

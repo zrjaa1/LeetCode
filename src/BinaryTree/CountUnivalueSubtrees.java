@@ -46,7 +46,7 @@ public class CountUnivalueSubtrees {
             return true;
         }
 
-        boolean isLeftUnival = dfs(root.left, root.val, count);
+        boolean isLeftUnival = dfs(root.left, root.val, count); // 这里不用target的原因是：target只对当前层有限定，（例如case [1,1,1,5,5,null,5])
         boolean isRightUnival = dfs(root.right, root.val, count);
         if (!isLeftUnival || !isRightUnival) {
             return false;
@@ -55,5 +55,24 @@ public class CountUnivalueSubtrees {
         // as long as above succeed, this subtree is a univalueTree, although it might not be for the given target.
         count[0]++;
         return root.val == target;
+    }
+
+    // This won't work for case [1,1,1,5,5,null,5], as the definition of this function has been changed during the mid of execution
+    private int dfsInt(TreeNode root, int target) {
+        if (root == null) {
+            return 0;
+        }
+
+        if (root.val == target && (root.left == null || root.left.val == target) && (root.right == null || root.right.val == target)) {
+            return 1 + dfsInt(root.left, target) + dfsInt(root.right, target);
+        } else if (root.left != null && root.right != null) {
+            return dfsInt(root.left, root.left.val) + dfsInt(root.right, root.right.val); // we should not change the target to left val or right val, since this breaks our definition of this function
+        } else if (root.left == null && root.right != null) {
+            return dfsInt(root.right, root.right.val);
+        } else if (root.right == null && root.left != null) {
+            return dfsInt(root.left, root.left.val);
+        } else {
+            return 1;
+        }
     }
 }

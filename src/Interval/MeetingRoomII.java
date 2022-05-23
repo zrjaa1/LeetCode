@@ -27,18 +27,21 @@ Output: 1
  **/
 
 public class MeetingRoomII {
-    // sol1: minHeap, easier to understand and memorize. Maintain a logical Occupied data structure.
+    // sol1: minHeap, easier to understand and memorize. Record all the end times. O(n * logk)
     public int minMeetingRoomsSol1(Interval[] intervals) {
         if (intervals == null || intervals.length == 0) return 0;
         Arrays.sort(intervals, (i1, i2) -> Integer.compare(i1.start, i2.start));
         Queue<Integer> minHeap = new PriorityQueue<>((s1, s2) -> s1 - s2 < 0 ? -1 : 1);
-        minHeap.offer(intervals[0].end);
+        minHeap.offer(intervals[0].end); // Record all the end times.
         int res = 1;
         int n = intervals.length;
         for (int i = 1; i < n; i++) {
-            // when we need to create a new room
-            if (intervals[i].start >= minHeap.peek()) minHeap.poll();
-            else res++;
+            if (intervals[i].start >= minHeap.peek()) { // we can re-use the previous room
+                minHeap.poll();
+            }
+            else {
+                res++; // we have to create a new room
+            }
             minHeap.offer(intervals[i].end);
         }
         return res;
@@ -54,7 +57,11 @@ public class MeetingRoomII {
         }
     }
 
-    // sol2: store both start and end endpoint and count in one pass.
+    /**
+     * Sol2: Sort based on all endpoints (left and right), O(nlogn)
+     * @param intervals
+     * @return
+     */
     public int minMeetingRoomsSol2(int[][] intervals) {
         if (intervals == null || intervals.length == 0) {
             return 0;
@@ -70,10 +77,10 @@ public class MeetingRoomII {
             if (a.time != b.time) {
                 return a.time - b.time;
             } else { //
-                if (a.isStart ^ b.isStart) { // either a.isStart or b.isStart
+                if (a.isStart || b.isStart) { // either a.isStart or b.isStart
                     return a.isStart ? 1 : -1;
                 } else {
-                    return a.time - b.time;
+                    return -1;
                 }
             }
         });

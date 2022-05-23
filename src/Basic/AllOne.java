@@ -47,9 +47,9 @@ import java.util.HashSet;
 
 /**
  * 本题主要考察：
- * 1. Bucket Sort的引申，即只有在取值连续变化且有一定范围的时候，可以在O(1)时间复杂度内实现Sort
+ * 1. Bucket Sort的引申，即只有在取值连续变化且有一定范围的时候，可以在O(n)时间复杂度内实现Sort
  * 2. Double Link Bucket
- * Note： LFU Cache应该可用类似解法
+ * Note：LFU Cache应该可用类似解法,即用Bucket来记录frequency，并且实时更新
  */
 public class AllOne {
     class Bucket {

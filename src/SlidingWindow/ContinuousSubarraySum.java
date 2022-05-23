@@ -51,7 +51,7 @@ public class ContinuousSubarraySum {
 
         Map<Integer, Integer> map = new HashMap<>();
         int curSum = 0;
-        map.put(0, -1);
+        map.put(0, -1); // 思考在sum % k == 0时如何return TRUE，从而想到在initialize的时候map.put(0, -1)
         for (int i = 0; i < nums.length; i++) {
             curSum += nums[i];
             int target = curSum % k;

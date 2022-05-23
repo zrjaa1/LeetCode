@@ -1,17 +1,10 @@
 package ArrayString;
 import java.util.*;
 
-/*
+/**
 205. Isomorphic Strings
 Easy
 
-653
-
-181
-
-Favorite
-
-Share
 Given two strings s and t, determine if they are isomorphic.
 
 Two strings are isomorphic if the characters in s can be replaced to get t.
@@ -34,7 +27,7 @@ Note:
 You may assume both s and t have the same length.
  */
 
-/*
+/**
 1. sol1: hashmap 双向 check，s->t, t->s (单向会出错）
 2. sol2: 单指针 one pass，assume 当前的 pair 匹配，往前检查上一次该 character 出现的 index，需要这两个 index 匹配
          首先想到用 hashMap 来记录 index，然后引申到用256的 int array

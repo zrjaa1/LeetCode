@@ -26,6 +26,11 @@ package Sort;
  * -104 <= nums[i] <= 104
  */
 public class KthLargestElementInAnArray {
+    /**
+     sol1: MinHeap, size k
+     sol2: MaxHeap, size n
+     sol3: quick Sort + prune, see code below
+     */
     public int findKthLargest(int[] nums, int k) {
         if (nums == null || nums.length < k) {
             return -1;
@@ -51,7 +56,7 @@ public class KthLargestElementInAnArray {
         }
     }
 
-    // return the index of pivot in nums[start, end], relatively
+    // return the index of pivot in nums[start, end]
     // 3 areas: [start, left] < pivot, [left + 1, i - 1] >= pivot, [i, end] un-processed
     private int partition(int[] nums, int start, int end) {
         if (start == end) {

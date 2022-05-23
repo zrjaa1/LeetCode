@@ -99,7 +99,7 @@ public class GasStation {
                 sum += gas[end] - cost[end];
             }
         }
-        return sum >= 0 ? (start + gas.length) % gas.length : -1;
+        return sum >= 0 ? start % gas.length : -1;
     }
 
     private int calculateDistance(int start, int end, int len) {

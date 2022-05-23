@@ -32,13 +32,13 @@ import java.util.TreeSet;
  * 0 <= t <= 231 - 1
  *
  */
-public class ContainsDuplicate {
+public class ContainsDuplicateIII {
     public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {
         if (k == 0) {
             return false;
         }
 
-        TreeSet<Integer> set = new TreeSet();
+        TreeSet<Integer> set = new TreeSet(); // 不用担心duplicate的问题，因为一旦window内有duplicate，那么直接返回true了（差值为0）
         for (int i = 0; i < nums.length; i++) {
             if (i >= k + 1) {
                 set.remove(nums[i - k - 1]);
@@ -60,7 +60,7 @@ public class ContainsDuplicate {
     }
 
     public static void main(String[] args) {
-        ContainsDuplicate tester = new ContainsDuplicate();
+        ContainsDuplicateIII tester = new ContainsDuplicateIII();
         System.out.println(tester.containsNearbyAlmostDuplicate(new int[] {1, 0, 1, 1}, 1, 2));
     }
 }

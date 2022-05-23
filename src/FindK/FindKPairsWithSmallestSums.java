@@ -83,7 +83,7 @@ public class FindKPairsWithSmallestSums {
         }
 
         int m = nums1.length, n = nums2.length;
-        Set<Cell> visited = new HashSet<Cell>();
+        Set<Cell> visited = new HashSet<>();
         PriorityQueue<Cell> minHeap = new PriorityQueue<>(m + n,
                 (a, b) -> a.val - b.val);
 

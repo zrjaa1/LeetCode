@@ -1,5 +1,6 @@
 package BinaryTree;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 /** *LeetCode* #94: https://leetcode.com/problems/binary-tree-inorder-traversal/
@@ -45,24 +46,22 @@ public class BinaryTreeInorderTraversal {
 	*/
 
 	// sol2: iteration with stack. Always go left, decide when to add value. pre-order traverse: when you meet to node; in-order: when you pop from the stack.
-	class Solution {
-	    public ArrayList<Integer> inorderTraversal(TreeNode root) {
-	        ArrayList<Integer> res = new ArrayList<Integer>();
-	        if (root == null) return res;
+	public ArrayList<Integer> inorderTraversal(TreeNode root) {
+		ArrayList<Integer> res = new ArrayList<Integer>();
+		if (root == null) return res;
 
-	        Stack<TreeNode> stack = new Stack<TreeNode>();
-	        while ( !stack.empty() || root != null) {
-	            if (root == null) {
-	                root = stack.pop();
-	                res.add(root.val);
-	                root = root.right;
-	            } else {
-	                stack.push(root);
-	                root = root.left;
-	            }
-	        }
-	        return res;
-	    }
+		Stack<TreeNode> stack = new Stack<TreeNode>();
+		while ( !stack.empty() || root != null) {
+			if (root == null) {
+				root = stack.pop();
+				res.add(root.val);
+				root = root.right;
+			} else {
+				stack.push(root);
+				root = root.left;
+			}
+		}
+		return res;
 	}
 
 	// Sol3: Iteration using stack and prev. This works better for post order traversal, not recommended for pre and in order.
@@ -106,5 +105,18 @@ public class BinaryTreeInorderTraversal {
 			prev = cur;
 		}
 		return res;
+	}
+
+	public static void main(String[] args) {
+		BinaryTreeInorderTraversal tester = new BinaryTreeInorderTraversal();
+		TreeNode root = new TreeNode(5);
+		root.left = new TreeNode(3);
+		root.right = new TreeNode(6);
+		root.left.left = new TreeNode(2);
+		root.left.right = new TreeNode(4);
+		List<Integer> res = tester.inorderTraversalPrev(root);
+		for (Integer i : res) {
+			System.out.print(i);
+		}
 	}
 }

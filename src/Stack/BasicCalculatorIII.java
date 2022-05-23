@@ -48,7 +48,7 @@ public class BasicCalculatorIII {
             throw new IllegalArgumentException("Invalid Arguments provided.");
         }
 
-        Map<Character, Integer> optrMap = setupOptrMap();
+        Map<Character, Integer> optrMap = setupOptrMap(); // priority map
         Stack<Integer> numStack = new Stack<>();
         Stack<Character> optrStack = new Stack<>();
 
@@ -68,7 +68,7 @@ public class BasicCalculatorIII {
                 optrStack.push(ch);
                 i++;
             } else { // dealing with ) and operators: + - * / and
-                if (ch == '-' && (i == 0 || s.charAt(i - 1) == '(')) { // dealing with leading -, e.g.: -1 + 1
+                if (ch == '-' && (i == 0 || s.charAt(i - 1) == '(')) { // dealing with leading -, e.g.: -1 + 1, (-1 + 1)
                     numStack.add(0);
                 }
                 addOptr(optrMap, numStack, optrStack, ch);
@@ -91,9 +91,9 @@ public class BasicCalculatorIII {
             }
             optrStack.pop(); // remove the peek (
         } else { // operators: + - * /
-            while (optrMap.containsKey(optrStack.peek())) {
+            while (optrMap.containsKey(optrStack.peek())) { // as long as we have available operators, we calculate
                 Character prev = optrStack.peek();
-                if (optrMap.get(ch) > optrMap.get(prev)) {
+                if (optrMap.get(ch) > optrMap.get(prev)) { // until the current operator has higher priority
                     break;
                 }
 

@@ -32,7 +32,7 @@ import java.util.Map;
 /**
  * 这道题主要考察：
  * 1. 复合数据结构：Sorted Double Link List + Map的应用，猜测LRU Cache与此类似
- * 2. Potential Optimization: Instaed of updateIdx, remove the node directly and append again.
+ * 2. Potential Optimization: Instead of updateIdx, remove the node directly and append again.
  * 3. Alternative Solution: Counter, applicable for both 2 and k cases.
  */
 public class LongestSubstringAtMostK {
@@ -95,7 +95,7 @@ public class LongestSubstringAtMostK {
         }
 
         /**
-         * update the index of last apperance of a character
+         * update the index of last appearance of a character
          * @param ch
          * @param idx
          */

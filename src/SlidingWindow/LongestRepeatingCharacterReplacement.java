@@ -55,11 +55,10 @@ public class LongestRepeatingCharacterReplacement {
                 freq[maxChar - 'A']++;
             } else { // ch != maxChar
                 freq[ch - 'A']++;
-                for (int i = 0; i < 26; i++) { // attempt to update max char
-                    if (freq[i] > freq[maxChar - 'A']) {
-                        maxChar = (char)(i + 'A');
-                    }
+                if (freq[ch - 'A'] > freq[maxChar - 'A']) { // attempt to update max char
+                    maxChar = ch;
                 }
+
             }
 
             // if we cannot change it to a valid string within k operations, move left
