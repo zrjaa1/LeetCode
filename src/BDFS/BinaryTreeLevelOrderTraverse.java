@@ -24,7 +24,7 @@ return its level order traversal as:
 /* Thoughts
  While loop outside, for loop (queue.size -> # of tree nodes in each level) times inside
  */
-public class binaryTreeLevelOrderTraverse {
+public class BinaryTreeLevelOrderTraverse {
     public List<List<Integer>> levelOrder(TreeNode root) {
         List<List<Integer>> res = new ArrayList<List<Integer>>();
         if (root == null) return res;
