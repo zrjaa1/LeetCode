@@ -46,14 +46,14 @@ public class WordBreakII {
         return res;
     }
 
-    private static void dfsWithPruning(String s, List<String> wordDict, int idx, List<String> res, String cur, Boolean[] cutable) {
+    private static void dfsWithPruning(String s, List<String> wordDict, int idx, List<String> res, String cur, Boolean[] cuttable) {
         // base case
         if (idx == s.length()) {
             res.add(cur.substring(1));
             return;
         }
 
-        if (cutable[idx] != null && cutable[idx] == false) {
+        if (cuttable[idx] != null && cuttable[idx] == false) {
             return;
         }
 
@@ -64,12 +64,14 @@ public class WordBreakII {
             if (wordDict.contains(word)) {
                 int len = cur.length();
                 cur = cur + ' ' + word;
-                dfsWithPruning(s, wordDict, i, res, cur, cutable);
+                dfsWithPruning(s, wordDict, i, res, cur, cuttable);
                 cur = cur.substring(0, len);
             }
         }
         if (res.size() != numRes) {
-            cutable[idx] = true;
+            cuttable[idx] = true;
+        } else {
+            cuttable[idx] = false;
         }
     }
 }
