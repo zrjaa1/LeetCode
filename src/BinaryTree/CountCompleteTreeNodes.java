@@ -48,11 +48,9 @@ public class CountCompleteTreeNodes {
         int heightLeft = getHeight(root.left);
         int heightRight = getHeight(root.right);
 
-        // Left is a full tree
-        if (heightLeft == heightRight) {
+        if (heightLeft == heightRight) { // Left is a full tree
             return 1 + ((1 << heightLeft) - 1) + countNodes(root.right);
-            // Right is a full tree
-        } else if (heightLeft == heightRight + 1) {
+        } else if (heightLeft == heightRight + 1) { // Right is a full tree
             return 1 + countNodes(root.left) + ((1 << heightRight) - 1);
         } else {
             throw new IllegalArgumentException("Not a complete tree");

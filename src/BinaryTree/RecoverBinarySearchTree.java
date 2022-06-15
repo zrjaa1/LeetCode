@@ -25,12 +25,18 @@ package BinaryTree;
  * -231 <= Node.val <= 231 - 1
  *
  */
+
+/**
+ * 1. Use prev and in-order traverse, use another pointer called mistake to record and then switch.
+ * 2. note that 2 mistakes could be neighbors in the in-order, so we have to set mistakes[1] no matter what(see code for details), instead of in a else statement.
+ * 3. we couldn't find a way to identify when is the 2nd mistake identified during our recursion. So switch at the end. There is no harm to do so.
+ */
 public class RecoverBinarySearchTree {
     public void recoverTree(TreeNode root) {
         TreeNode[] mistakes = new TreeNode[2];
         dfs(root, new TreeNode[1], mistakes);
 
-        int temp = mistakes[0].val;
+        int temp = mistakes[0].val; // we couldn't find a way to identify when is the 2nd mistake identified during our recursion. So switch at the end. There is no harm to do so.
         mistakes[0].val = mistakes[1].val;
         mistakes[1].val = temp;
     }
@@ -48,7 +54,7 @@ public class RecoverBinarySearchTree {
             if (mistakes[0] == null) {
                 mistakes[0] = prev[0];
             }
-            mistakes[1] = root;
+            mistakes[1] = root; // note that 2 mistakes could be neighbors in the in-order, so we have to set mistakes[1] no matter what, instead of in a else statement.
         }
         prev[0] = root;
 

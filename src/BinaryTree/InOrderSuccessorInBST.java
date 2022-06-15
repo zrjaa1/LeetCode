@@ -30,6 +30,10 @@ package BinaryTree;
  * -105 <= Node.val <= 105
  * All Nodes will have unique values.
  */
+
+/**
+ * Memorize <= go right, > go left, set candidate before going left.
+ */
 public class InOrderSuccessorInBST {
     public TreeNode inorderSuccessor(TreeNode root, TreeNode p) {
         if (root == null || p == null) {

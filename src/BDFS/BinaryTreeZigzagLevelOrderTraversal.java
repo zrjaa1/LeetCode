@@ -1,5 +1,6 @@
 package BDFS;
-import PreDefinedClass.TreeNode;
+
+import BinaryTree.TreeNode;
 import java.util.*;
 
 /* 103 Binary Tree Zigzag Level Order Traversal

@@ -28,7 +28,7 @@ Given the below binary tree and sum = 22,
 7    2      1
  */
 
-public class HasPathSum {
+public class PathSum {
     public boolean hasPathSum(TreeNode root, int sum) {
         if (root == null) return false;
         if (root.left == null && root.right == null) return sum == root.val ? true : false;

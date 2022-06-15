@@ -73,7 +73,7 @@ public class CourseScheduleII {
         return result;
     }
 
-    // if we could find a loop in the graph
+    // if we could find a loop in the graph, if not, add the course in res list
     private boolean dfs(List<List<Integer>> graph, int cur, int[] visited, List<Integer> res) {
         int state = visited[cur];
         if (state == 1) { // visiting
@@ -102,7 +102,7 @@ public class CourseScheduleII {
     private List<List<Integer>> buildGraph(int numCourses, int[][] prerequisites) {
         List<List<Integer>> graph = new ArrayList<>(numCourses);
         for (int i = 0; i < numCourses; i++) {
-            graph.add(new LinkedList<Integer>());
+            graph.add(new LinkedList<>());
         }
 
         for (int[] prerequisite: prerequisites) {

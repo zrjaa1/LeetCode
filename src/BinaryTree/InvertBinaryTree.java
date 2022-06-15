@@ -1,6 +1,6 @@
 package BinaryTree;
 
-// *Leetcode* 226
+// *Leetcode* 226: https://leetcode.com/problems/invert-binary-tree/
 /*
 Invert a binary tree.
 
@@ -42,13 +42,13 @@ class InvertBinaryTree {
 */
 //Sol2: DFS recursion
 class InvertBinaryTree {
- public TreeNode invertTree(TreeNode root) {
-     if (root == null) return root;
-     TreeNode tempNode = root.left;
-     root.left = root.right;
-     root.right = tempNode;
-     invertTree(root.left);
-     invertTree(root.right);
-     return root;
- }
+    public TreeNode invertTree(TreeNode root) {
+        if (root == null) return root;
+        TreeNode tempNode = root.left;
+        invertTree(root.left);
+        invertTree(root.right);
+        root.left = root.right;
+        root.right = tempNode;
+        return root;
+    }
 }

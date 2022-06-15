@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 642. Design Search Autocomplete System
+ * 642. Design Search Autocomplete System： https://leetcode.com/problems/design-search-autocomplete-system/
  * Hard
  *
  * 1722

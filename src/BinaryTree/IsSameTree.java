@@ -1,6 +1,6 @@
 package BinaryTree;
 
-// *Leetcode* #100
+// *Leetcode* #100: https://leetcode.com/problems/same-tree
 
 public class IsSameTree {
 	class Solution {

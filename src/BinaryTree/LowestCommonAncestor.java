@@ -1,7 +1,7 @@
 package BinaryTree;
 
 /*
-236. Lowest Common Ancestor of a Binary Tree
+236. Lowest Common Ancestor of a Binary Tree: https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
 Medium
 
 1670
@@ -56,6 +56,7 @@ public class LowestCommonAncestor {
         return contains(root, p, q);
     }
 
+    // return a TreeNode that contains either p or q.
     private TreeNode contains(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null || root == p || root == q) return root;
         TreeNode left = contains(root.left, p, q);

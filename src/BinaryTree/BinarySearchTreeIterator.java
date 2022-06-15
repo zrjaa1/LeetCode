@@ -2,7 +2,7 @@ package BinaryTree;
 
 import java.util.Stack;
 
-// *Leetcode* #173
+// *Leetcode* #173: https://leetcode.com/problems/binary-search-tree-iterator/
 /*
 Implement an iterator over a binary search tree (BST). Your iterator will be initialized with the root node of a BST.
 
