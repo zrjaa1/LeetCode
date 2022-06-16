@@ -16,10 +16,7 @@ public class MergeSort{
 	}
 
 	private void merge(int[] nums, int left, int right, int leftBound, int rightBound) {
-		int[] helper = new int[nums.length];
-		for (int i = 0; i < nums.length; i++) {
-			helper[i] = nums[i];
-		}
+		int[] helper = nums.clone();
 		int cur = left;
 		while (left <= leftBound && right <= rightBound) {
 			if (helper[left] < helper[right]) {
@@ -31,13 +28,13 @@ public class MergeSort{
 			}
 			cur++;
 		}
-		if (right == rightBound+1) {
+		if (right == rightBound+1) { // in case of right go out of bound, we need to fill in [right, rightBound] with left numbers
 			while (left <= leftBound) {
 				nums[cur] = helper[left];
 				cur++;
 				left++;
 			}
-		}
+		} // in case of left go out of bound, we don't do anything as the [right, rightBound] part is already sorted.
 	}
 
 	private List<Integer> mergeII(List<Integer> left, List<Integer> right) {
