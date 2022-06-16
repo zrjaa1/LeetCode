@@ -8,13 +8,6 @@ import java.util.List;
  * 642. Design Search Autocomplete System： https://leetcode.com/problems/design-search-autocomplete-system/
  * Hard
  *
- * 1722
- *
- * 118
- *
- * Add to List
- *
- * Share
  * Design a search autocomplete system for a search engine. Users may input a sentence (at least one word and end with a special character '#').
  *
  * You are given a string array sentences and an integer array times both of length n where sentences[i] is a previously typed sentence and times[i] is the corresponding number of times the sentence was typed. For each input character except '#', return the top 3 historical hot sentences that have the same prefix as the part of the sentence already typed.

@@ -36,11 +36,14 @@ The flattened tree should look like:
 
 /*
 sol1: similar to "SerializeToDoublyLinkedList", use post-order traverse and a global prev. (since we want to change the left/right, we want recursion first, then do something,
-use system stack to record the sequence of traversing)
+use system stack to record the sequence of traversing).
+需要特别注意的是，这种in-place操作需要保证，先访问要修改的child，再进行修改，否则会进入无限循环。如果没有把握的话，直接选用post-order是最保险的。
+如何思考：例如本题需要的是 root.right = left, 如果用pre-oder: root, left, right, 首先无法直接用prev，其次哪怕用prev.right = root也是错误的，因为会导致无限循环
+而如果使用变形版post-order：right, left, root，那么可以直接进行root.right = prev的操作，逻辑上也很简单。
 sol2: use divide and conquer (pure recursion)
  */
 public class FlattenBinaryTreeToLinkedList {
-    /* sol1
+    // sol1: post-order
     public void flatten(TreeNode root) {
         if (root == null) return;
         TreeNode[] prev = new TreeNode[1];
@@ -57,10 +60,9 @@ public class FlattenBinaryTreeToLinkedList {
         node.left = null;
         prev[0] = node;
     }
-    */
 
     // sol2 标准recursion，自己想出来的
-
+    /*
     public void flatten(TreeNode root) {
         if (root == null) return;
         helper(root);
@@ -81,6 +83,7 @@ public class FlattenBinaryTreeToLinkedList {
         root.left = null;
         return root;
     }
+     */
 
     /*
     // sol3 一个很精妙的recursion，hard to understand

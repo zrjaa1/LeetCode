@@ -39,10 +39,12 @@ Output: 0
 Explanation: The endWord "cog" is not in wordList, therefore no possible transformation.
  */
 
-/*
-1. generate graph O(n^2) between wordList
+/**
+1. BFS + generate graph O(n * k) from wordList, where n is the number of word in the list, and k is the length of word.
+   Note that the solution that I write use a convert function to calculate each time, but the best solution should be constructing a graph
 2. find the entry in the graph (1 distance from beginWord)
-3. BFS from both entries and get the shortest distance
+3. Optimization: Bidirectional BFS -> in case the startWord has much more edges than endWord, we could start from both side, use 2 sets to record and check if the set contains begin/endWord.
+See Leetcode Solution for reasons, but basically, you can save 1 level traverse time in the Tree, if the endWord located at the very bottom of a complete tree, then it save a half of time (still constant factor)
 Note:注意审题，求的是最小链的长度而不是 distance
  */
 public class WordLadder {

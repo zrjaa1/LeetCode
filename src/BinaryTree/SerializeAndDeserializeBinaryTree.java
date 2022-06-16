@@ -32,8 +32,10 @@ Clarification: The above format is the same as how LeetCode serializes a binary 
 Note: Do not use class member/global/static variables to store states. Your serialize and deserialize algorithms should be stateless.
  */
 
-/*
-DFS方式的inorder遍历
+/**
+    1. DFS方式的pre-order遍历, using a queue,
+    2. similarly, post-order should work as well, with stack
+    3. I don't think in-order is easy to implement.
  */
 public class SerializeAndDeserializeBinaryTree {
     // Encodes a tree to a single string.
@@ -48,7 +50,7 @@ public class SerializeAndDeserializeBinaryTree {
         if (node == null) {
             sb.append("null").append(",");
         } else {
-            sb.append(node.val).append(",");
+            sb.append(node.val).append(","); // pre-order then use a queue, if post-order then use a stack
             buildString(node.left, sb);
             buildString(node.right, sb);
         }
@@ -57,18 +59,18 @@ public class SerializeAndDeserializeBinaryTree {
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
         if (data == null || data.length() == 0) return null;
-        Deque<String> deque = new LinkedList<>();
-        deque.addAll(Arrays.asList(data.split(",")));
-        return buildTree(deque);
+        Queue<String> queue = new LinkedList<>();
+        queue.addAll(Arrays.asList(data.split(",")));
+        return buildTree(queue);
     }
 
-    private TreeNode buildTree(Deque<String> deque) {
-        String val = deque.removeFirst();
+    private TreeNode buildTree(Queue<String> queue) {
+        String val = queue.poll();
         if (val.equals("null")) return null;
         else {
             TreeNode node = new TreeNode(Integer.valueOf(val));
-            node.left = buildTree(deque);
-            node.right = buildTree(deque);
+            node.left = buildTree(queue); // This is the key of de-serialization
+            node.right = buildTree(queue);
             return node;
         }
     }
