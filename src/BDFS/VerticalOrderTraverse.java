@@ -76,9 +76,12 @@ Output:
 ]
  */
 
-/* Thoughts
+/** Thoughts in 2019
     use a hashmap to store <index, List<TreeNode>>, record the min max index at the same time. Then loop once to get the result list
     Warning: My solution is not completely correct since the solution want the sequence like BFS but I actually work as DFS way. However, the method should be the same
+
+    Thoughts in 2022
+    Tree Traverse to get the min_col and max_col to guarantee the col order; then BFS(level order traverse) to make sure the row order
  */
 
 class VerticalOrderTraverse {
