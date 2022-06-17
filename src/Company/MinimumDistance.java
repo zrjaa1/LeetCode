@@ -1,4 +1,4 @@
-package OA;
+package Company;
 
 import java.util.*;
 public class MinimumDistance {

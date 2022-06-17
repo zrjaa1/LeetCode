@@ -1,17 +1,10 @@
-package Graph;
+package Graph.Topology;
 import java.util.*;
 
 /*
-269. Alien Dictionary
+269. Alien Dictionary：
 Hard
 
-762
-
-148
-
-Favorite
-
-Share
 There is a new alien language which uses the latin alphabet. However, the order among letters are unknown to you. You receive a list of non-empty words from the dictionary, where words are sorted lexicographically by the rules of this new language. Derive the order of letters in this language.
 
 Example 1:
@@ -83,7 +76,7 @@ public class AlienDictionary {
         if (words == null || words.length == 0) return res;
         Map<Character, Set<Character>> map = new HashMap<>();
         Map<Character, Integer> degree = new HashMap<>();
-        for (String str : words) {
+        for (String str : words) { // 这步在本题中需要，具体看题目情况而定
             for (char c : str.toCharArray())
                 degree.put(c, 0);
         }

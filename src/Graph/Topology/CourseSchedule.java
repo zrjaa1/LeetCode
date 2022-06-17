@@ -1,4 +1,4 @@
-package Graph;
+package Graph.Topology;
 
 import java.util.HashMap;
 import java.util.LinkedList;
