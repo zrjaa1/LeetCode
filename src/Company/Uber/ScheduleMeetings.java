@@ -19,6 +19,8 @@ import java.util.*;
  * //   (11,12),
  * // ]
  * // scheduleMeeting(schedule, 3)
+ *
+ * Need to clarify: Any priority
  */
 
 public class ScheduleMeetings {
@@ -84,6 +86,8 @@ public class ScheduleMeetings {
     // Solution 2: Instead of using an available list, we can actually put everything as long as we have a good initialization of minHeap.
     // O(T) = O(n * logk + n * logn), the for loop runs n times, and each time it takes O(logk) to poll() and offer() in worst case. The sort takes O(nlogn)
     // O(S) = O(k) for the minHeap
+
+    // Note that this class is used in case that the input is given with order(we need to clarify this，但很可能不需要)
     class TimeRangeWithIndex {
         int start;
         int end;

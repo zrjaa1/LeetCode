@@ -1,5 +1,4 @@
 src/.idea/
 LeetCode.iml
 out/
-.idea/uiDesigner.xml
-.idea/workspace.xml
+/.idea/*

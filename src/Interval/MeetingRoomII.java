@@ -98,6 +98,21 @@ public class MeetingRoomII {
         return max;
     }
 
+    /**
+     * Follow up: 找到有overlap的时间段，返回最长的那个
+     * 思路：
+     *
+     * 我目前的想法是用一个minHeap来获取当前最小的endTime，和一个maxHeap来获取当前最大的endTime：
+     *
+     * 1. 对于每个新的meeting，首先看minHeap中的peek是否 <= meeting.start，如果true的话，那么minHeap.poll()直到minHeap的peek和当前meeting的时间有overlap，或者minHeap为空为止。
+     *    如果存在overlap，那么说明存在以meeting.startTime开始的overlap，进入第2步。如果minHeap已经为空还没找到overlap，那么直接将新的meeting放入minHeap和maxHeap，continue进行下一个meeting的遍历。
+     * 2. 在已经确保有overlap，且以meeting.startTime开始的情况下，计算最大可能的overlap：
+     *    overlap的长度为 Math.min(meeting.endTime, maxHeap.peek().endTime) - meeting.startTime。重复这个过程记录overlap最大的时间段即可。
+     *
+     * 之前想在minHeap.poll()的同时也要maxHeap.remove()同一meeting，后面感觉让其留在maxHeap中，也不会影响结果，因为需要删去的都是当前已经结束的meeting，肯定不会造成overlap。maxHeap.remove()是O（n）反而增加了整体的时间复杂度。
+     * 整体的时间复杂度应为O(nlogk), n是input的size，k为最大房间数量
+     */
+
     public static void main(String[] args) {
         MeetingRoomII tester = new MeetingRoomII();
         int[][] intervals = new int[][] {{0, 30}, {5, 10}, {15, 20}};
