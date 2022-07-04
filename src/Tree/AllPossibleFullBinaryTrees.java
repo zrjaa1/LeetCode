@@ -28,6 +28,10 @@ import java.util.Map;
  * Output: [[0,0,0]]
  *
  */
+
+/**
+ * DFS returns the list of all possible full binary tree
+ */
 public class AllPossibleFullBinaryTrees {
     Map<Integer, List<TreeNode>> mem = new HashMap<>();
 
@@ -42,7 +46,7 @@ public class AllPossibleFullBinaryTrees {
                 result.add(new TreeNode(0));
             } else if (n % 2 == 1) {
                 for (int i = 0; i < n; i++) {
-                    List<TreeNode> lefts = allPossibleFBT(n);
+                    List<TreeNode> lefts = allPossibleFBT(n); // n 为偶数时，会return empty list，不会进iterator，因此不用在for loop中判断奇偶
                     List<TreeNode> rights = allPossibleFBT(n - 1 - i);
                     for (TreeNode left: lefts) {
                         for (TreeNode right: rights) {

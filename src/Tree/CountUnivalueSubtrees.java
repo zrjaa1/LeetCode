@@ -30,17 +30,23 @@ package Tree;
  * The number of the node in the tree will be in the range [0, 1000].
  * -1000 <= Node.val <= 1000
  */
+
+/**
+ * dfs: if the subtree is a uni value subtree for a given target.
+ * 要牢记dfs定义的核心，如果中间出现了偏离，结果就会出错
+ * 即使返回false，也可能是count++，因为subtree可能是uniValue Tree，但不等于target。具体见code
+ */
 public class CountUnivalueSubtrees {
     public int countUnivalSubtrees(TreeNode root) {
         if (root == null) {
             return 0;
         }
         int[] count = new int[1]; // avoid the usage of global variable
-        dfs(root, 0, count);
+        dfs(root, root.val, count);
         return count[0];
     }
 
-    // return if the subtree is the univalue subtree with given value "target".
+    // return if the subtree is the univalue subtree with given value "target". Meanwhile count the number of uniValue subtrees along the way.
     private boolean dfs(TreeNode root, int target, int[] count) {
         if (root == null) {
             return true;
@@ -57,7 +63,9 @@ public class CountUnivalueSubtrees {
         return root.val == target;
     }
 
-    // This won't work for case [1,1,1,5,5,null,5], as the definition of this function has been changed during the mid of execution
+    /**
+     * This solution won't work for case [1,1,1,5,5,null,5], as the definition of this function has been changed during the mid of execution
+     */
     private int dfsInt(TreeNode root, int target) {
         if (root == null) {
             return 0;

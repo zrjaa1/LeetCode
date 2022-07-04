@@ -52,7 +52,8 @@ public class LargestBSTSubtree {
     }
 
     private Result dfs(TreeNode root, int[] max) {
-        // not returning null otherwise would be confused with the case that the subtree is not a valid BST
+        // not returning null otherwise would be confused with the case that the subtree is not a valid BST.
+        // Otherwise we will regard it as an invalid BST subtree and return in the parent recursion.
         if (root == null) {
             return new Result(0, 0, 0);
         }

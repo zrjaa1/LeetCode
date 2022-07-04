@@ -149,7 +149,7 @@ class ClosestBinarySearchTreeValueII{
      return res;
  }
 
- // sol2 re-write in 2022: Use the thought of BST 2 sum
+ // sol2 re-write in 2022: Use the thought of BST 2 sum. Who small move who, use 2 logical stacks for subtrees.
     public List<Integer> closestKValue(TreeNode root, double target, int k) {
         List<Integer> res = new ArrayList<>();
         // corner case
@@ -157,8 +157,8 @@ class ClosestBinarySearchTreeValueII{
             return res;
         }
 
-        Stack<TreeNode> leftStack = new Stack<>();
-        Stack<TreeNode> rightStack = new Stack<>();
+        Stack<TreeNode> leftStack = new Stack<>(); // 存比target小的logical left subtree，栈顶为 floor()
+        Stack<TreeNode> rightStack = new Stack<>(); // 存比target大的logical right subtree, 栈顶为 ceiling()
 
         // initialization
         TreeNode cur = root;

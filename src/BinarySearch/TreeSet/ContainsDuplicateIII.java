@@ -1,4 +1,4 @@
-package Tree;
+package BinarySearch.TreeSet;
 
 import java.util.TreeSet;
 
@@ -31,6 +31,10 @@ import java.util.TreeSet;
  * 0 <= k <= 104
  * 0 <= t <= 231 - 1
  *
+ */
+
+/**
+ * TreeSet放Value。逻辑上是一个fixed size的有序的sliding window
  */
 public class ContainsDuplicateIII {
     public boolean containsNearbyAlmostDuplicate(int[] nums, int k, int t) {

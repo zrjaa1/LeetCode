@@ -19,6 +19,9 @@ package Tree;
  * 1 <= n <= 19
  */
 
+/**
+ * dfs可以memorization
+ */
 public class UniqueBinarySearchTrees {
     public int numTrees(int n) {
         if (n == 0 || n == 1) {

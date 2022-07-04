@@ -26,6 +26,9 @@ package Tree;
  * -109 <= target <= 109
  */
 
+/**
+ * 类似于Binary Search，小了往右找，大了往左找。
+ */
 public class ClosestBSTValue {
     public int closestValue(TreeNode root, double target) {
         if (root == null) return Integer.MIN_VALUE;
