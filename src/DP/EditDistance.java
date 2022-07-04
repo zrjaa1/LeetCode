@@ -31,6 +31,9 @@ exention -> exection (replace 'n' with 'c')
 exection -> execution (insert 'u')
  */
 
+/**
+ * DP[i][j]: the minimal edit distance between word[0, idx1) and word2[0, idx2)
+ */
 public class EditDistance {
     // DP, O(m*n)
     public int minDistance(String word1, String word2) {
@@ -44,7 +47,7 @@ public class EditDistance {
         }
 
         // initial value
-        int[][] dp = new int[word1.length() + 1][word2.length() + 1];
+        int[][] dp = new int[word1.length() + 1][word2.length() + 1]; // the minimal edit distance between word[0, idx1) and word2[0, idx2)
         for (int i = 0; i <= word1.length(); i++) {
             dp[i][0] = i;
         }

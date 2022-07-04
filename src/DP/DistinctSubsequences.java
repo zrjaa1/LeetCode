@@ -42,6 +42,10 @@ import java.util.List;
  * 1 <= s.length, t.length <= 1000
  * s and t consist of English letters.
  */
+
+/**
+ * DP[i][j]: how many subsequence t[0, j] do we have in string s[0, i]. If there is match, we can choose to pick it or not.
+ */
 public class DistinctSubsequences {
     public int numDistinct(String s, String t) {
         int lenS = s.length(), lenT = t.length();

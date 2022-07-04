@@ -36,6 +36,7 @@ package DP;
  * 为什么可以选择后打k:
  * 1. 因为dp也是搜索了所有可能性，所以先打k，还是后打k，对结果并无影响
  * 2. 在计算dp[i, j]所依赖的其他dp值时，其实已经考虑了其邻居k，所以逻辑上，我们实际上是先打邻居，再打k
+ * 3. 在计算每一个dp值时，我们都当做[i, j]左边和右边都是1，这样才能时dp的等式合理。画图一下就明白了
  */
 public class BurstBalloons {
     public int maxCoins(int[] nums) {
@@ -49,7 +50,7 @@ public class BurstBalloons {
         for (int i = len - 1; i >= 0; i--) {
             for (int j = i; j < len; j++) {
                 for (int k = i; k <= j; k++) {
-                    int leftVal = k == i ? 0 : dp[i][k - 1];
+                    int leftVal = k == i ? 0 : dp[i][k - 1]; // 在计算每一个dp值时，我们都当做[i, j]左边和右边都是1，这样才能时dp的等式合理。画图一下就明白了
                     int rightVal = k == j ? 0 : dp[k + 1][j];
                     int midVal = nums[k] * (i == 0 ? 1 : nums[i - 1]) * (j == len - 1 ? 1 : nums[j + 1]);
                     dp[i][j] = Math.max(dp[i][j], leftVal + rightVal + midVal);

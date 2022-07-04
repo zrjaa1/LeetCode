@@ -34,6 +34,9 @@ package DP;
  * 0 <= nums[i] <= 107
  */
 public class PredictTheWinner {
+    /**
+     * Original Solution: dp is the maximum value the player 1 could get in nums[i, j], needs to see if the current player is player 1 or not.
+     */
     public boolean PredictTheWinner(int nums[]) {
         if (nums == null || nums.length == 0) {
             throw new IllegalArgumentException();
@@ -62,5 +65,29 @@ public class PredictTheWinner {
 
     private boolean playerOnePlaying(int i, int j, int totalLength) {
         return (totalLength - (j - i + 1)) % 2 == 0;
+    }
+
+    /**
+     * Improved solution that I come up with: dp is the maximum value that the current player could get in nums[i, j). Beats 100%!
+     */
+
+    public boolean PredictTheWinner2(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            throw new IllegalArgumentException();
+        }
+
+        int len = nums.length;
+        int sum = 0;
+        int[][] dp = new int[len + 1][len + 1]; // dp[i][j]: the max value the current player could get in nums[i, j)
+        for (int i = len - 1; i >= 0; i--) {
+            sum += nums[i];
+            int curSum = 0;
+            for (int j = i + 1; j <= len; j++) {
+                curSum += nums[j - 1];
+                dp[i][j] = curSum - Math.min(dp[i + 1][j], dp[i][j - 1]);
+            }
+        }
+
+        return dp[0][len] >= sum - dp[0][len];
     }
 }

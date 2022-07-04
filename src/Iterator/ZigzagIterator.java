@@ -54,8 +54,8 @@ import java.util.Queue;
  */
 
 /**
- * Sol1: use queue, not necessary in this problem
- * Sol2: use deque, so that we could control the sequence of zigzag iterates that is needed.
+ * Sol1: use queue, so that we could control the sequence of zigzag iterates that is needed.
+ * Sol2: use deque, not necessary in this problem
  * Sol3: Use a double linked list wrapper of Iterators, more complex to write.
  */
 public class ZigzagIterator {
