@@ -1,9 +1,6 @@
 package Graph.Topology;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 207. Course Schedule: https://leetcode.com/problems/course-schedule/
@@ -40,7 +37,15 @@ import java.util.Map;
  * Submissions
  * 1,853,139
  */
+
+/**
+ * Sol1: Topology sort
+ * Sol2: Indegree + BFS
+ */
 public class CourseSchedule {
+    /**
+     * Sol1: Topology sort
+     */
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         // corner case
         if (numCourses == 0 || prerequisites == null || prerequisites.length == 0) {
@@ -88,13 +93,65 @@ public class CourseSchedule {
         visited.put(cur, 2);
         return false;
     }
-
     private Map<Integer, List<Integer>> buildGraph(int[][] prerequisites) {
         Map<Integer, List<Integer>> graph = new HashMap<>();
         for (int[] prerequisite: prerequisites) {
             List<Integer> requirements = graph.getOrDefault(prerequisite[0], new LinkedList<Integer>());
             requirements.add(prerequisite[1]);
             graph.put(prerequisite[0], requirements);
+        }
+        return graph;
+    }
+
+    /**
+     * Sol2: Indegree + BFS
+     */
+
+    public boolean canFinishSol2(int numCourses, int[][] prerequisites) {
+        Map<Integer, Integer> indegree = new HashMap<>();
+        for (int i = 0; i < numCourses; i++) {
+            indegree.put(i, 0);
+        }
+
+        Map<Integer, List<Integer>> graph = buildGraph(prerequisites, indegree);
+
+        // start with courses that has indegree == 0
+        Set<Integer> coursesCanTake = new HashSet<>();
+        Queue<Integer> queue = new LinkedList<>();
+        for (Map.Entry<Integer, Integer> entry : indegree.entrySet()) {
+            if (entry.getValue() == 0) {
+                queue.offer(entry.getKey());
+                coursesCanTake.add(entry.getKey());
+            }
+        }
+
+        // BFS
+        while (!queue.isEmpty()) {
+            int cur = queue.poll();
+            if (graph.containsKey(cur)) {
+                for (int neighbor : graph.get(cur)) {
+                    int curIndegree = indegree.get(neighbor) - 1;
+                    if (curIndegree == 0) {
+                        queue.offer(neighbor);
+                        coursesCanTake.add(neighbor);
+                    }
+                    indegree.put(neighbor, curIndegree);
+                }
+            }
+
+        }
+
+        return coursesCanTake.size() == numCourses;
+
+    }
+
+    private Map<Integer, List<Integer>> buildGraph(int[][] prerequisites, Map<Integer, Integer> indegree) {
+        Map<Integer, List<Integer>> graph = new HashMap<>();
+        for (int[] prerequisite: prerequisites) {
+            List<Integer> nextCourses = graph.getOrDefault(prerequisite[1], new LinkedList<Integer>());
+            nextCourses.add(prerequisite[0]);
+            graph.put(prerequisite[1], nextCourses);
+            indegree.put(prerequisite[0], indegree.getOrDefault(prerequisite[0], 0) + 1);
         }
         return graph;
     }

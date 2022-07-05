@@ -1,17 +1,10 @@
-package DFS;
+package Graph.UnionFind;
 import java.util.*;
 
-/*
-305. Number of Islands II
+/**
+305. Number of Islands II：https://leetcode.com/problems/number-of-islands-ii/
 Hard
 
-490
-
-7
-
-Favorite
-
-Share
 A 2d grid map of m rows and n columns is initially filled with water. We may perform an addLand operation which turns the water at position (row, col) into a land. Given a list of positions to operate, count the number of islands after each addLand operation. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
 
 Example:
@@ -50,16 +43,15 @@ Follow up:
 Can you do it in time complexity O(k log mn), where k is the length of the positions?
  */
 
-/*
+/**
 sol1: brute force, 对每次修改，直接调用LC 200 Number of Islands, 得到结果 -> O(k) * O(m*n) -> Time Limit Exceed
-sol2: union find。这道题是典型的 union find，我们需要以O(1)的时间来 union/merge，O（logn)的时间来找到祖先
-
+sol2: union find, RECOMMENDED, 这道题是典型的 union find，我们需要以O(1)的时间来 union/merge，O（logn)的时间来找到祖先
  */
 
 public class NumberOfIslandsII {
-    // sol1
-    /*
-    public List<Integer> numIslands2(int m, int n, int[][] positions) {
+    /** Sol1: Brute force DFS
+     */
+    public List<Integer> numIslands2Sol1(int m, int n, int[][] positions) {
         List<Integer> res = new ArrayList<>();
         if (positions == null || positions.length == 0 || positions[0] == null || positions.length == 0) return res;
         boolean[][] area = new boolean[m][n];
@@ -94,47 +86,31 @@ public class NumberOfIslandsII {
         if (j-1 >= 0 && area[i][j-1]) dfs(area, visited, i, j-1);
         if (j+1 < area[0].length && area[i][j+1]) dfs(area, visited, i, j+1);
     }
-    */
 
-    // sol2 Union Find
-    final int[][] directions = {{-1,0}, {1,0}, {0,-1}, {0,1}};
+
+    /**
+     * Sol2: RECOMMENDED, Union Find
+     */
+    static int[][] DIRECTIONS = new int[][] {{-1, 0}, {1, 0}, {0, -1}, {0, 1}}; // left, right, up, down
     public List<Integer> numIslands2(int m, int n, int[][] positions) {
+        UnionFind uf = new UnionFind(m, n);
         List<Integer> res = new ArrayList<>();
-        if (positions == null || positions.length == 0 || positions[0] == null || positions.length == 0) return res;
-
-        // store the index of parent
-        int[] roots = new int[m*n];
-        Arrays.fill(roots, -1);
-        int count = 0;
         for (int[] position : positions) {
-            int root = position[0] * n + position[1];
-            roots[root] = root;
-            count++;
-            for (int[] direct : directions) {
-                int i = position[0] + direct[0];
-                int j = position[1] + direct[1];
+            int i = position[0], j = position[1];
+            uf.insert(position[0], position[1]);
+            for (int[] direction: DIRECTIONS) {
+                int ii = i + direction[0];
+                int jj = j + direction[1];
+                if (ii < 0 || ii >= m || jj < 0 || jj >= n) continue;
 
-                int neighbor = i*n+j;
-                if (i < 0 || i >= m || j < 0 || j >= n || roots[neighbor] == -1) continue;
-
-                int neighborRoot = findRoot(roots, neighbor);
-                // if they don't have the same root
-                if (root != neighborRoot) {
-                    roots[root] = neighborRoot;
-                    root = neighborRoot;
-                    count--;
+                if (uf.exist(ii, jj) && !uf.find(i, j, ii, jj)) {
+                    uf.union(i, j, ii, jj);
                 }
             }
-            res.add(count);
+            res.add(uf.numUnions);
         }
-        return res;
-    }
 
-    private int findRoot(int[] roots, int index) {
-        if (roots[index] != index) {
-            roots[index] = findRoot(roots, roots[index]);
-        }
-        return roots[index];
+        return res;
     }
 
     public static void main(String[] args) {

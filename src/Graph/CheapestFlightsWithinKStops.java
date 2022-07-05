@@ -242,7 +242,7 @@ public class CheapestFlightsWithinKStops {
                 Pair2 cur = queue.poll();
                 for (int i = 0; i < n; i++) {
                     int cost = adjMatrix[cur.city][i];
-                    if (cost != 0 && cur.dist + cost < distances[i]) {
+                    if (cost != 0 && cur.dist + cost < distances[i]) { // Do relaxation for any vertices that found a shorter path to
                         queue.offer(new Pair2(i, cur.dist + cost));
                         distances[i] = cur.dist + cost;
                     }

@@ -52,10 +52,14 @@ import java.util.Map;
  * 1 <= Cj.length, Dj.length <= 5
  * Ai, Bi, Cj, Dj consist of lower case English letters and digits.
  */
+
+/**
+ * 这道题给出了Union Find的另一种形式，即以dedicated class作为Union Find中的member，用Map of members来容纳所有的member。
+ */
 public class EvaluateDivision {
     class V {
         String name;
-        Double val;
+        Double val; // 本题重点0：定义为root与本节点值的比值 (root/originalVal)
         V parent;
         int size;
 
@@ -74,10 +78,11 @@ public class EvaluateDivision {
             members = new HashMap<>();
         }
 
+        // 更新root的值，而找root过程中也会更新其中节点的值
         public void union(V p, V q, double value) {
             V rootP = getRoot(p);
             V rootQ = getRoot(q);
-            if (rootP.size < rootQ.size) { // P -> Q
+            if (rootP.size < rootQ.size) { // P -> Q // 本题重点2：如果在更换root时，更新root的值。需要在本子上演算
                 rootP.val = q.val / p.val / value;
                 rootP.parent = rootQ;
                 rootQ.size += rootP.size;
@@ -92,12 +97,13 @@ public class EvaluateDivision {
             return getRoot(p) == getRoot(q);
         }
 
+        // 更新经过的每个点的值，以及p本身的值，但会跳过一些，不过并不影响正确性，在真正用到那些节点时，getRoot自然会更新
         private V getRoot(V p) {
             V cur = p;
             double d = 1.0;
-            while (cur.parent != cur) {
+            while (cur.parent != cur) { // 本题重点，如果在getRoot的过程中更新cur的值，需要在本子上演算
                 cur.val *= cur.parent.val;
-                d *= cur.val;
+                d *= cur.val; // 为了最后直接设置p.val
                 cur.parent = cur.parent.parent;
                 cur = cur.parent;
             }

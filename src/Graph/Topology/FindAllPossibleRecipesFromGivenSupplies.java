@@ -1,4 +1,4 @@
-package Graph;
+package Graph.Topology;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -51,13 +51,18 @@ import java.util.stream.Stream;
  * All the values of recipes and supplies combined are unique.
  * Each ingredients[i] does not contain any duplicate values.
  */
+
+/**
+ * Since some of the recipe will be ingredient of other recipe, we try it recursively, or use Indgree + BFS, which is a recursive way itself.
+ */
 public class FindAllPossibleRecipesFromGivenSupplies {
     /**
-     * My solution: Build Graph, start from each recipe and recursively find out if it is a working recipes, pruning with a hashset. Return false if loop detected
+     * My solution: Topology sort + recursively find if one of the ingredient another recipe. Start from each recipe to see if it's possible to make it. Detect loop as well.
      */
     public List<String> findAllRecipes(String[] recipes, List<List<String>> ingredients, String[] supplies) {
         Map<String, List<String>> recipesMap = new HashMap<>();
         Set<String> suppliesSet = new HashSet<>();
+        // build graph
         for (int i = 0; i < recipes.length; i++) {
             recipesMap.put(recipes[i], ingredients.get(i));
         }
@@ -82,7 +87,7 @@ public class FindAllPossibleRecipesFromGivenSupplies {
             return true;
         }
         Integer state = visited.get(cur);
-        if (state != null && state == 1) { // visiting
+        if (state != null && state == 1) { // visiting. If a loop detected or we couldn't make this recipe, the state will stay at 1 and always return false.
             return false;
         }
 
@@ -93,7 +98,7 @@ public class FindAllPossibleRecipesFromGivenSupplies {
         visited.put(cur, 1);
         for (String ingredient : recipes.get(cur)) {
             if (recipes.containsKey(ingredient)) { // another recipe
-                if (!dfs(recipes, supplies, ingredient, visited, workingRecipes)) {
+                if (!dfs(recipes, supplies, ingredient, visited, workingRecipes)) { // try to find if we could make this recipes, recursively
                     return false;
                 }
             } else { // ingredient
@@ -108,7 +113,7 @@ public class FindAllPossibleRecipesFromGivenSupplies {
     }
 
     /**
-     * Alternatively, use topology sort with in-degree
+     * Sol2: RECOMMENDED, Indgree + BFS
      */
     public List<String> findAllRecipesInDegree(String[] recipes, List<List<String>> ingredients, String[] supplies) {
         List<String> ans = new ArrayList<>();
@@ -116,32 +121,38 @@ public class FindAllPossibleRecipesFromGivenSupplies {
         Set<String> available = Stream.of(supplies).collect(Collectors.toCollection(HashSet::new));
         Map<String, Set<String>> ingredientToRecipes = new HashMap<>(); // key - ingredient that is not done yet, value - the dependent recipes
         Map<String, Integer> inDegree = new HashMap<>(); // key - recipe, value - inDegree
+        Queue<String> queue = new LinkedList<>(); // all the recipes that we can make at this time
         for (int i = 0; i < recipes.length; ++i) {
-            int nonAvailable = 0;
+            int curIndegree = 0;
             for (String ing : ingredients.get(i)) {
                 if (!available.contains(ing)) {
-                    ingredientToRecipes.computeIfAbsent(ing, s -> new HashSet<>()).add(recipes[i]);
-                    ++nonAvailable;
+                    ingredientToRecipes.computeIfAbsent(ing, s -> new HashSet<>()).add(recipes[i]); // find out what is missing currently
+                    ++curIndegree;
                 }
             }
-            if (nonAvailable == 0) {
+            if (curIndegree == 0) {
                 ans.add(recipes[i]);
-            }else {
-                inDegree.put(recipes[i], nonAvailable);
+                queue.offer(recipes[i]);
+            } else {
+                inDegree.put(recipes[i], curIndegree);
             }
         }
-        // Toplogical Sort.
-        // It's a little bit trickly since we wanted to do this recursively. However, add new recipe in the answer would lead to another iteration, so this works.
-        for (int i = 0; i < ans.size(); ++i) {
-            String recipe = ans.get(i);
-            if (ingredientToRecipes.containsKey(recipe)) {
-                for (String rcp : ingredientToRecipes.remove(recipe)) {
-                    if (inDegree.merge(rcp, -1, Integer::sum) == 0) {
-                        ans.add(rcp);
+
+        // BFS
+        while (!queue.isEmpty()) {
+            String cur = queue.poll();
+            if (ingredientToRecipes.containsKey(cur)) {
+                for (String next : ingredientToRecipes.get(cur)) {
+                    int curIndegree = inDegree.get(next) - 1;
+                    if (curIndegree == 0) {
+                        queue.offer(next);
+                        ans.add(next);
                     }
+                    inDegree.put(next, curIndegree);
                 }
             }
         }
+
         return ans;
     }
 }

@@ -1,4 +1,4 @@
-package Graph;
+package Graph.UnionFind;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,6 +44,12 @@ import java.util.stream.Collectors;
  * 1 <= accounts[i][j] <= 30
  * accounts[i][0] consists of English letters.
  * accounts[i][j] (for j > 0) is a valid email.
+ */
+
+/**
+ * Union Find一道非常经典的题。本题最巧妙的点是：
+ * 1. UF中存的是userId而非单个email，因为同一个userId中的所有email一定是属于同一个user的。这样做避免了同一个user还需要merge email的麻烦。
+ * 2. Email -> UserId的map，2 purposes: 1. detect if an email has been recorded before; 2. If yes, what is its index in the UF, we need it for merging.
  */
 public class AccountsMerge {
     class UnionFind {
@@ -99,14 +105,15 @@ public class AccountsMerge {
             return parents[p] != -1;
         }
     }
+
     public List<List<String>> accountsMerge(List<List<String>> accounts) {
         List<List<String>> res = new LinkedList<>();
         if (accounts == null || accounts.size() == 0) {
             return res;
         }
 
-        UnionFind uf = new UnionFind(accounts.size());
-        HashMap<String, Integer> emailToUserMap = new HashMap<>();
+        UnionFind uf = new UnionFind(accounts.size()); // 存在的userId而非单个的email
+        HashMap<String, Integer> emailToUserMap = new HashMap<>(); // 2 purposes: 1. detect if an email has been recorded before; 2. If yes, what is its index in the UF, we need it for merging.
 
         // construct UF
         for (int i = 0; i < accounts.size(); i++) {
@@ -118,7 +125,7 @@ public class AccountsMerge {
                 }
                 if (!emailToUserMap.containsKey(email)) {
                     emailToUserMap.put(email, i);
-                } else {
+                } else { // if we encountered this email before.
                     Integer userInUF = emailToUserMap.get(email);
                     if (!uf.find(i, userInUF)) {
                         uf.union(i, userInUF);

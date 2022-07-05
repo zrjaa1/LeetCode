@@ -1,4 +1,4 @@
-package Graph;
+package Graph.UnionFind;
 
 import java.util.Arrays;
 
@@ -36,7 +36,8 @@ import java.util.Arrays;
 
 /**
  * 1. 树的 E = V - 1，如果不是，可以直接return false，这样handle了绝大多数edge case
- * 2. 在每个node都需要初始化insert到UnionFind object当中，这样才能够handle edge case: graph is not connected.
+ * 2. Union Find, 2 vertices should not be already connected when we are trying to union them.
+ * 3. 在每个node都需要初始化insert到UnionFind object当中，这样才能够handle edge case: graph is not connected.
  */
 public class GraphValidTree {
     /**
@@ -112,7 +113,7 @@ public class GraphValidTree {
         }
 
         for (int[] edge: edges) {
-            if (uf.find(edge[0], edge[1])) {
+            if (uf.find(edge[0], edge[1])) { // if the 2 vertices are already in the same union (means they are already connected)
                 return false;
             }
 

@@ -1,7 +1,7 @@
 package Graph.Topology;
 import java.util.*;
 
-/*
+/**
 269. Alien Dictionary：
 Hard
 
@@ -48,8 +48,8 @@ If the order is invalid, return an empty string.
 There may be multiple valid order of letters, return any one of them is fine.
  */
 
-/*
-BFS解法：
+/**
+Sol1: Indegree + BFS解法：
 这道题考察Graph的应用。图的表示方式中，可以用hashMap<node, List<node>>，在这里，我们用HashMap<Character, Set<Character>>，named map用来表示edge（在本题中是directed）
 然后用另一个HashMap<Character, Integer> named degree来表示每个node 的入度，入度>0，代表有人指向，即自己的优先级不是最高的
 先遍历所有String，完善map和degree（degree的初始值需要设为0，否则之后可能会有问题），这里需要注意的是，完善map使的遍历，只需要比较words[i]和words[i+1]即可，因为我们需要的只是邻居之间的大小关系
@@ -58,7 +58,7 @@ BFS解法：
 在完成上一步之后，我们将所有入度为0的character放到queue中，用BFS的方法遍历，放入res中，然后把这个character所指向的所有character的入度-1，代表"我对你的压制已经不存在了，因为我已经放入res中了"
 如果一个character的入度因此变为0，证明它现在已经是剩余的character中优先级最高的了，于是再把它放入queue中等待遍历。
 
-DFS解法：
+Sol2: DFS解法：
 用查环的code，多一行res.add(0, cur);
 
 Corner/Edge case: Input -> Output
@@ -69,7 +69,7 @@ Corner/Edge case: Input -> Output
 
 public class AlienDictionary {
     /**
-     * BFS
+     * Sol1: Indegree + BFS
      */
     public String alienOrderBFS(String[] words) {
         String res = "";
@@ -124,7 +124,7 @@ public class AlienDictionary {
     }
 
     /**
-     * DFS
+     * Sol2: Topology sort
      */
     public String alienOrderDFS(String[] words) {
         // some corner case covered by Constraints
