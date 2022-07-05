@@ -1,4 +1,4 @@
-package Stack;
+package Stack.SortedStack;
 
 /**
  * 255. Verify Preorder Sequence in Binary Search Tree： https://leetcode.com/problems/verify-preorder-sequence-in-binary-search-tree/
@@ -33,6 +33,7 @@ import java.util.Stack;
 
 /**
  * Keep a lower bound in a sorted stack in descending order(from bot to top of stack).
+ * When we pop from the stack, it means we are going into the right branch, which means we should set our low bound as well.
  */
 public class VerifyPreorderSequenceInBinarySearchTree {
     public boolean verifyPreorder(int[] preorder) {

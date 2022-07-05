@@ -1,4 +1,4 @@
-package Stack;
+package Stack.NestedStructure;
 
 import java.util.Stack;
 
@@ -41,6 +41,12 @@ import java.util.Stack;
  * expression consists of digits, 'T', 'F', '?', and ':'.
  * It is guaranteed that expression is a valid ternary expression and that each number is a one-digit number.
  */
+
+/**
+ * 1. 通过第三个例子可知，从后往前遍历。T/F也可能成为一个return value，而不是只作为判断字符出现
+ * 2. 记得在把content放在stack中时，stringBuilder需要先reverse，因为是从后往前遍历的
+ * 3. ? 和 : 是content的分隔符，T/F不能作为分隔符
+ */
 public class TernaryExpressionParser {
     public String parseTernary(String expression) {
         if (expression == null || expression.length() == 0) {
@@ -57,14 +63,14 @@ public class TernaryExpressionParser {
                 String trueString = valStack.pop();
                 String falseString = valStack.pop();
                 valStack.push(judgement == 'T' ? trueString : falseString);
-            } else { // contents
+            } else { // contents, 非 :  ?. 注意 T/F也可以成为content
                 StringBuilder sb = new StringBuilder();
                 sb.append(ch);
                 while (i - 1 >= 0 && expression.charAt(i - 1) != ':' && expression.charAt(i - 1) != '?') {
                     sb.append(expression.charAt(i - 1));
                     i--;
                 }
-                valStack.push(sb.reverse().toString());
+                valStack.push(sb.reverse().toString()); // 记得reverse，因为是从后往前遍历
             }
         }
         return valStack.peek();

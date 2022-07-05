@@ -1,4 +1,4 @@
-package DP;
+package Stack.SortedStack;
 import java.util.*;
 
 /*
@@ -62,31 +62,24 @@ sol4. stack 的方法
       所有计算 area 过程中出现的最大值即为问题的解。
  */
 public class LargestRectangleInHistogram {
-    // sol4
+    // sol4 存index而非数值，这样方便与计算面积
     public int largestRectangleArea(int[] heights) {
-        if (heights == null || heights.length == 0) return 0;
-        int n = heights.length;
-        // store index
-        Stack<Integer> s = new Stack<>();
-        int res = 0;
-        s.push(-1);
-        for (int i = 0; i < n; i++) {
-            // keep pushing until local max is meet
-            if (i == 0 || heights[i] > heights[i-1]) s.push(i);
-            else {
-                while (s.peek() != -1 && heights[s.peek()] > heights[i]) {
-                    int left = s.pop();
-                    int area = heights[left] * (i-s.peek()-1);
-                    res = Math.max(area, res);
-                }
-                s.push(i);
+        if (heights == null || heights.length == 0) {
+            return 0;
+        }
+
+        Stack<Integer> stack = new Stack<>();
+        int max = 0;
+        for (int i = 0; i <= heights.length; i++) {
+            int height = (i != heights.length) ? heights[i] : 0;
+            while (!stack.isEmpty() && height < heights[stack.peek()]) { // 在遇到比stack.peek()小的i时，实际上是计算的i左边的可能最大区域，而不包括i自身。
+                int topIndex = stack.pop();
+                int width = stack.empty() ? i : (i - stack.peek() - 1);
+                int area = heights[topIndex] * width;
+                max = Math.max(max, area);
             }
+            stack.push(i);
         }
-        while (s.peek() != -1) {
-            int right = s.pop();
-            int area = heights[right] * (n-1-s.peek());
-            res = Math.max(area,res);
-        }
-        return res;
+        return max;
     }
 }

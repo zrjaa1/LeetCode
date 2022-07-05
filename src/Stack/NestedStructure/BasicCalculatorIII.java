@@ -1,4 +1,4 @@
-package Stack;
+package Stack.NestedStructure;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,6 +41,10 @@ import java.util.Stack;
 
 /**
  * A classic problem of using stacks, thought of modulation. Many details that will be testified while writing the code.
+ *
+ * 1. 在加入operator如栈时，trigger 优先级 <= 它的栈中已有的运算，例如，遇到 + - 时肯定会引发之前 + - * / 的计算。遇到 * / 时会引发 * / 的计算
+ * 这样保证了在遇到 ) 无脑运算的时候，总是可以从栈顶开始计算。
+ * （注意必须是 <= 不然实际运算过程中可能会因为stack的特性而使同一层的两个 - 变成 +，记忆即可。可以用 1 * 2 - 3 / 4 + 5 * 6 - 7 * 8 + 9 / 10这个test case来debug看）
  */
 public class BasicCalculatorIII {
     public int calculate(String s) {
@@ -93,13 +97,15 @@ public class BasicCalculatorIII {
         } else { // operators: + - * /
             while (optrMap.containsKey(optrStack.peek())) { // as long as we have available operators, we calculate
                 Character prev = optrStack.peek();
-                if (optrMap.get(ch) > optrMap.get(prev)) { // until the current operator has higher priority
+                // until the current operator has higher priority than ones in the stack。例如，遇到 + - 时肯定会引发之前 + - * / 的计算。遇到 * / 时会引发 * / 的计算
+                // 这样保证了在遇到 ) 无脑运算的时候，总是可以从栈顶开始计算。注意这里必须是 > 而不能是 >=，具体原因看最开始的注释
+                if (optrMap.get(ch) > optrMap.get(prev)) {
                     break;
                 }
 
                 calculate(numStack, optrStack);
             }
-            optrStack.push(ch);
+            optrStack.push(ch); // 最后再将operator push进stack
         }
     }
 
@@ -130,7 +136,7 @@ public class BasicCalculatorIII {
 
     public static void main(String[] args) {
         BasicCalculatorIII tester = new BasicCalculatorIII();
-        String test = "6-4/2";
+        String test = "1*2-3/4+5*6-7*8+9/10";
         int res = tester.calculate(test);
         System.out.println(res);
     }

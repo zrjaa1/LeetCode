@@ -1,4 +1,4 @@
-package Stack;
+package Stack.Iteration;
 
 import java.util.Stack;
 

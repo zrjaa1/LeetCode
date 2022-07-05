@@ -1,4 +1,4 @@
-package Stack;
+package Stack.NestedStructure;
 
 import java.util.Stack;
 
@@ -37,6 +37,10 @@ import java.util.Stack;
  * s is guaranteed to be a valid input.
  * All the integers in s are in the range [1, 300].
  */
+
+/**
+ * 2个stack：数字和StringBuilder。遇到 [ push一个新的StringBuilder，遇到 ] pop，并且和栈顶的StringBuilder拼接
+ */
 public class DecodeString {
     public String decodeString(String s) {
         if (s == null || s.length() == 0) {
@@ -64,13 +68,7 @@ public class DecodeString {
                 }
                 strStack.peek().append(sb);
             } else { // content
-                StringBuilder content = new StringBuilder();
-                content.append(ch);
-                while (i + 1 < s.length() && s.charAt(i + 1) >= 'a' && s.charAt(i + 1) <= 'z') {
-                    content.append(s.charAt(i + 1));
-                    i++;
-                }
-                strStack.peek().append(content);
+                strStack.peek().append(ch);
             }
         }
 
