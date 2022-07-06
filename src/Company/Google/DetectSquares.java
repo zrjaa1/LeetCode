@@ -77,7 +77,9 @@ public class DetectSquares {
                 continue;
             }
 
-            res += count[p3x][p1y] * count[p1x][p3y]; // p2 and p4 found here will be skipped as they cannot be p3(diagonal of p1)
+            // 1. p2 and p4 found here will be skipped in the loop as they cannot be p3(diagonal of p1)
+            // 2. we don't consider the count of p3 here as we will iterate other p3s in the loop as well.
+            res += count[p3x][p1y] * count[p1x][p3y];
         }
 
         return res;

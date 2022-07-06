@@ -1,7 +1,5 @@
 package Others;
 
-import ArrayString.Palindrome;
-
 /*
 9. Palindrome Number
 Easy

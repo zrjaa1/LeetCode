@@ -37,8 +37,10 @@ Submissions
 775,234
  */
 
-/*
-Thoughts: 遇到1就以bfs/dfs的方式把它周围的1都变成0，count++
+/**
+Thoughts:
+ 1. 可以用visited来记录走过的地方，看一共有多少个island。DFS return true or false
+ 2. 进一步空间上的优化：遇到1就以bfs/dfs的方式把它周围的1都变成0，count++, inplace操作
  */
 public class NumberOfIslands {
     public int numIslands(char[][] grid) {

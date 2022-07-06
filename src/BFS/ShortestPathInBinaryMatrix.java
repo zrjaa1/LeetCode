@@ -1,4 +1,4 @@
-package DFS;
+package BFS;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -44,7 +44,7 @@ import java.util.Set;
  */
 
 /**
- * 如果in-place操作允许的话，可以直接把0 -> 1来get rid of visited，需要跟面试官clarify是否是multi-thread environment
+ * BFS. 如果in-place操作允许的话，可以直接把0 -> 1来get rid of visited，需要跟面试官clarify是否是multi-thread environment
  */
 public class ShortestPathInBinaryMatrix {
     class Point {

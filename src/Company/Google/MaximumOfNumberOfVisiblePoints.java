@@ -66,7 +66,7 @@ public class MaximumOfNumberOfVisiblePoints {
             if (x == location.get(0) && y == location.get(1)) { // 分开统计
                 sameLocation++;
             } else {
-                double pointAngle = Math.atan2((double)(y - location.get(1)), (double)(x - location.get(0)));
+                double pointAngle = Math.atan2((double)(y - location.get(1)), (double)(x - location.get(0))); // angle is in PI scale
                 angles.add(pointAngle);
             }
         }
@@ -80,7 +80,7 @@ public class MaximumOfNumberOfVisiblePoints {
         int max = 0;
         for (int i = 0; i < size; i++) { // 循环到原来的size即可，后面多循环虽然不会出错，但浪费时间
             double baseAngle = angles.get(i);
-            double targetAngle =baseAngle + ((double)(angle) / 180D * Math.PI);
+            double targetAngle = baseAngle + ((double)(angle) / 180D * Math.PI);
             int index = binarySearch(angles, targetAngle);
             int numOfPoints = index - i + 1;
             max = Math.max(max, numOfPoints);

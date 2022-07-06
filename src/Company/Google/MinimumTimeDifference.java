@@ -27,6 +27,8 @@ import java.util.*;
 
 /**
  * sort to find the first and last in the array. Compare neighbor difference and first-last difference.
+ * Depends on the time range. In this problem it is 1440 so that sol2 is recommended. In case the time range is
+ * greater than n, think about sol1 vs sol2 which one is better.
  */
 public class MinimumTimeDifference {
     /**
@@ -58,7 +60,7 @@ public class MinimumTimeDifference {
     }
 
     /**
-     * Sol2: Sort using bucket. O(n + 1440) = O(n)
+     * Sol2: RECOMMENDED. Sort using bucket. O(n + 1440) = O(n)
      */
     public int findMinDifference2(List<String> timePoints) {
         boolean[] mark = new boolean[24 * 60];

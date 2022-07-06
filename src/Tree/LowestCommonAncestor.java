@@ -56,7 +56,7 @@ public class LowestCommonAncestor {
         return contains(root, p, q);
     }
 
-    // return a TreeNode that contains either p or q.
+    // return a TreeNode that contains either p or q. return null if not containing any of them.
     private TreeNode contains(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null || root == p || root == q) return root;
         TreeNode left = contains(root.left, p, q);

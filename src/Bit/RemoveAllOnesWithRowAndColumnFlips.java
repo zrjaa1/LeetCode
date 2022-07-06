@@ -47,8 +47,8 @@ package Bit;
  */
 public class RemoveAllOnesWithRowAndColumnFlips {
     public boolean removeOnes(int[][] grid) {
-        for (int[] row : grid){
-            for (int i = 1; i < row.length; i++){
+        for (int[] row : grid){ // for each row
+            for (int i = 1; i < row.length; i++){ // the difference should be the same. For example, if abs(row[i][0] - grid[0][0]) == 1, then all other cells in the same row should differ by 1.
                 if (Math.abs(row[i] - grid[0][i]) != Math.abs(row[0] - grid[0][0]))
                     return false;
             }

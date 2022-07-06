@@ -36,20 +36,25 @@ import java.util.HashMap;
  * The shortest instruction sequence is "AAARA".
  * Your position goes from 0 --> 1 --> 3 --> 7 --> 7 --> 6.
  */
+
+/**
+ * DP. dp[i] the minimal step to reach target i, assume our direction heads to i and our speed is 1.
+ */
 public class RaceCar {
     /**
      * DP, Optimal solution. BFS not optimal
      */
     public int racecar(int target) {
-        int[] dp = new int[target + 1];
+        int[] dp = new int[target + 1]; // dp[i] the minimal step to reach target i, assume our direction heads to i and our speed is 1.
 
         for (int i = 1; i <= target; i++) {
             dp[i] = Integer.MAX_VALUE;
 
             int m = 1, j = 1;
 
-            for (; j < i; j = (1 << ++m) - 1) { //
-                for (int q = 0, p = 0; p < j; p = (1 << ++q) - 1) {
+            // case one: when j < i, we take m As to position j, then reverse and take q steps to position (j - p), and then reverse again, and start from speed 1 to get i.
+            for (; j < i; j = (1 << ++m) - 1) { // we take m As to get j directly, without reversing.
+                for (int q = 0, p = 0; p < j; p = (1 << ++q) - 1) { // p - location, q steps to reach j
                     dp[i] = Math.min(dp[i], m + 1 + q + 1 + dp[i - (j - p)]);   // case 1: j < i, for each j < i, find any p < j and issue one reverse at j then another reverse at p. The final state is in
                                                                                 // position == j - p. It takes m steps to reach j, 1 step to reverse, and q step to reach p, and then 1 step to reverse.
                 }
@@ -62,7 +67,7 @@ public class RaceCar {
     }
 
     /**
-     * DFS, NOT WORKING as the stack overflow. The correct way is to use BFS instead. But BFS is also not optimal
+     * DFS with pruning, NOT WORKING as the stack overflow. The correct way is to use BFS instead. But BFS is also not optimal
      */
     class Wrapper {
         int cur;

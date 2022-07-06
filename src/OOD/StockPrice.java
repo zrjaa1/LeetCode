@@ -117,7 +117,7 @@ public class StockPrice {
     /**
      * Sol2: Use HashMap + TreeMap(which is sorted by key)
      * HashMap<timestamp, price>
-     * TreeMap<price, frequency> if the price frequency is 0, remove it from the treemap.
+     * TreeMap<price, frequency> if the price frequency is 0, remove it from the treemap.  so that we can keep treeMap updated.
      * O(T) = O(logn) for update, O(logn) for getMin/Max
      * O(S) = O(n)
      */

@@ -43,8 +43,8 @@ import java.util.List;
  */
 
 /**
- * My Solution: 1. find the lowest common ancesor 2. find the paths: root -> start, root -> end 3. replace the start to "U"
- * Alternative Solution:
+ * My Solution: RECOMMENDED 1. find the lowest common ancesor 2. find the paths: root -> start, root -> end 3. replace the start to "U"
+ * Alternative Solution: (not implemented)
  * 1. Build directions for both start and destination from the root.
  * 2. Remove common prefix path. We remove "L", and now start direction is "LRRL", and destination - "RR"
  * 3. Replace all steps in the start direction to "U" and add destination direction.
@@ -52,7 +52,7 @@ import java.util.List;
 public class StepByStepDistanceFromBinaryTreeToAnother {
     public String getDirections(TreeNode root, int startValue, int destValue) {
         List<String> res = new ArrayList<>(); // res.get(0): root -> startValue; res.get(1): root -> destValue
-        TreeNode ancestor = commonAncestor(root, startValue, destValue);
+        TreeNode ancestor = lowestCommonAncestor(root, startValue, destValue);
         dfs(ancestor, startValue, new StringBuilder(), res);
         dfs(ancestor, destValue, new StringBuilder(), res);
 
@@ -90,10 +90,11 @@ public class StepByStepDistanceFromBinaryTreeToAnother {
         sb.setLength(len);
     }
 
-    private TreeNode commonAncestor(TreeNode root, int p, int q) {
+    // return a TreeNode that contains either p or q. return null if not containing any of them.
+    private TreeNode lowestCommonAncestor(TreeNode root, int p, int q) {
         if (root == null || root.val == p || root.val == q) return root;
-        TreeNode left = commonAncestor(root.left, p, q);
-        TreeNode right = commonAncestor(root.right, p, q);
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
 
         if (left != null && right != null) return root;
         return left != null ? left : right;

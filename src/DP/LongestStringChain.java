@@ -46,6 +46,8 @@ import java.util.*;
  * This is a non-traditional dp problem. Although the key of pruning is String, the feature of this problem determines
  * that we could fill in values consecutively, which makes it dp-able.
  * O(T) = O(nlogn + n * L^2) = O(n * (logn + L^2))
+ *
+ * Optimization: Pre-Build graph instead of build during dp state transition.
  */
 public class LongestStringChain {
     public int longestStrChain(String[] words) {
